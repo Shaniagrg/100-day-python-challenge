@@ -1,5 +1,5 @@
 import random
-import string
+import string  
 password:list[str] = []
 final_password:str = ""
 a = random.choice(string.ascii_letters) 
