@@ -13,7 +13,9 @@ if sea == "wait":
     print("Nice, you made it to the next level, you're pretty good at this!")
 elif sea =="swim":
         print("The end") 
+
 print("Welcome to: TREASURE ISLAND")
+
 print("Now that you've amde it to Treasure Island, you can dig or search the cave.")
 cave:str = input("Type Dig/Cave: ")
 if cave == "dig":
