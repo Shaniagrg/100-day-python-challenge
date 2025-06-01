@@ -8,18 +8,26 @@ if sam == 0 and computer == 0:
            print('You choose: Rock')
            print('Computer choose: Rock')
            print('Its a draw!')
+elif sam == 0 and computer == 1:
+           print('You choose: Rock')
+           print('Computer choose: Paper')
+           print('I lost')
+elif sam == 0 and computer == 2:
+           print('You choose: Rock')
+           print('Computer choose: Scissor')
+           print('You win!')
+elif sam == 1 and computer == 0:
+           print('You choose: Paper')
+           print('Computer choose: Rock')
+           print('I win')          
 elif sam == 1 and computer == 1:
            print('You choose: Paper')
            print('Computer choose: Paper')
            print('Its a draw!')
-elif sam == 2 and computer == 2:
-           print('You choose: Scissor')
-           print('Computer choose: Scissor')
-           print('Its a draw!')
-elif sam == 1 and computer == 0:
+elif sam == 1 and computer == 2:
            print('You choose: Paper')
-           print('Computer choose: Rock')
-           print('I win')
+           print('Computer choose: Scissor')
+           print('You lost')
 elif sam == 2 and computer == 0:
            print('You choose: Scissor')
            print('Computer choose: Rock')
@@ -27,4 +35,10 @@ elif sam == 2 and computer == 0:
 elif sam == 2 and computer == 1:
            print('You choose: Scissor')
            print('Computer choose: Paper')
-           print('I win')
+           print('I win')           
+elif sam == 2 and computer == 2:
+           print('You choose: Scissor')
+           print('Computer choose: Scissor')
+           print('Its a draw!')
+
+
