@@ -34,7 +34,9 @@ while (i < 3):
         i = i -1
     elif guess not in answer and guess not in guessed_letters:
         print(f"{guess} is not the letter. You have lost 1 life.")
-
+    if i == 3:
+        print("Game over")
+        print(f"The word was '{answer}'.")
     guessed_letters.add(guess)
     print(guessed_letters)
     print(x)
