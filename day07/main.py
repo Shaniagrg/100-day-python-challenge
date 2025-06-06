@@ -9,39 +9,32 @@ answer:str = "redadge"
 x:list[int] = ["_","_","_","_","_","_","_",]
 guessed_letters:set[str] = set()
 
-i:int = 0
-while (i < 3):
-    i = i + 1
+lives:int = 3
+end:str = "corrrect word" 
+
+while True:
     guess:str = input("Guess the letter: ")
-    final:str = ""
-    
-    if guess in answer and guess not in guessed_letters:
-        i = i -1 
+    if guess in guessed_letters:
+        print("Already used. Try another letter.")
+    elif guess in answer:
         for ind in range(0,len(answer),1):
             if guess == answer[ind]:
-                x[ind] = answer[ind]
-        for index in range(0,len(x),1):
-            final = final + x[index]
-        if final == answer:
+                x[ind] = answer[ind] 
+        if ''.join(x) == answer:   # ''.join(variable) concats string from lists 
             print(x)
-            print("You have won the game!")
-            break   
-    elif guess in answer and guess in guessed_letters: 
-        print("Already used. Try another letter.")
-        i = i -1
-    elif guess not in answer and guess in guessed_letters:
-        print("Already used. Try another letter.")
-        i = i -1
-    elif guess not in answer and guess not in guessed_letters:
-        print(f"{guess} is not the letter. You have lost 1 life.")
-    if i == 3:
-        print("Game over")
-        print(f"The word was '{answer}'.")
+            print("You won the game!!")
+            break
+    elif guess not in answer:
+        lives = lives - 1
+        print(f"{guess} is not the letter. You have {lives} life remain.")
+        if lives == 0:
+            print(f"Game over. The word was '{answer}.'")
+            break
+      
     guessed_letters.add(guess)
-    print(guessed_letters)
     print(x)
 
-#if guess in answer and guess NOT in guessed_letters:  add the letter
-#if guess in answer and guess in guessed_letters:  used letter try agian
-#if guess NOT in answer and guess NOT in guessed_letters:  LOOSE TRY
-#if guess NOT in answer and guess in guessed_letters: used letter try again
+
+#Duplicate 
+#right 
+#wrong looses tires 
