@@ -6,11 +6,10 @@
 #5 tries and 1 word at a time
 
 answer:str = "redadge"
-x:list[int] = ["_","_","_","_","_","_","_",]
+x:list[str] = ["_","_","_","_","_","_","_",]
 guessed_letters:set[str] = set()
 
 lives:int = 3
-end:str = "corrrect word" 
 
 while True:
     guess:str = input("Guess the letter: ")
