@@ -1,4 +1,4 @@
-<h3>Day 7 - Hangman
+<h3>Day 7 - Hangman </h3>
 
 Concepts Practised
 <ol>
