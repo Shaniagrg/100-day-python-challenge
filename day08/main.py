@@ -11,15 +11,14 @@ def funct_input() -> None:
             print("Type the shift number:")
             shift_number:int = int(input(""))
 
-            encrypt:list[str] = []
+            encrypt:str = ""
 
             for ind in range(0,len(message),1):
                 current_letter:str = message[ind]
                 for i in range(0,len(letters),1):
                     if current_letter == letters[i]:   
                         secret:int = (i + shift_number) % 26   #26 cuz theres 26 letter in total when yp type z it will wrap back to 'a'
-                        print(secret)
-                        encrypt.append(letters[secret])
+                        encrypt = encrypt + letters[secret]
             
             print(f"Here's the encoded result: {''.join(encrypt)}")
         elif type_word == "decode":
