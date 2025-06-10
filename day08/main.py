@@ -27,14 +27,14 @@ def funct_input() -> None:
             print("Type the shift number:")
             shift_number:int = int(input(""))
 
-            decrypt: list[str] = []
+            decrypt:str = ""
 
             for ind in range(0, len(message), 1):
                 current_letter = message[ind]
                 for i in range(0, len(letters), 1):
                     if current_letter == letters[i]:   
                         secret: int = (i - shift_number) % 26  # minus - shift backward
-                        decrypt.append(letters[secret])
+                        decrypt = decrypt + letters[secret]
 
             print(f"Here's the decoded result: {''.join(decrypt)}")
         else:
