@@ -1,21 +1,51 @@
 def winner_check(all_bidders_record:dict[str,float], compare_bids:float, save_winner_name:str) -> None:
-        for key,value in all_bidders_record.items():
-            if value > compare_bids:
-                compare_bids = value
-                save_winner_name = key
-        print(f"The highest bidder is {save_winner_name} with a ${compare_bids}.")
-        print("Thank you for participation.")
+        
+    '''
+    Check serially 1st iteration then 2nd until the end of the map
+    Then store the highest bidder and declare
+
+
+    parameters:
+        - all_bidders_record:dict[str,float]
+        - compare_bids:float
+        - save_winner_name:str
+
+    returns: None
+    '''
+    for key,value in all_bidders_record.items():
+        if value > compare_bids:
+            compare_bids = value
+            save_winner_name = key
+    print(f"The highest bidder is {save_winner_name} with a ${compare_bids}.")
+    print("Thank you for participation.")
      
 
 def total_bidders(all_bidders_record:dict[str,float]) -> bool:
-        highest_bid:float = 0.0
-        winner_name:str = ""
-        winner_check(all_bidders_record, compare_bids=highest_bid, save_winner_name=winner_name)
-        return True
+    
+    '''
+    Use the final bidders value to check for the winner
+    Store the highest bid everytime you compare and save the name 
+
+    parameters:
+        - all_bidders_record:dict[str,float]
+
+    returns: bool
+    '''
+    highest_bid:float = 0.0
+    winner_name:str = ""
+    winner_check(all_bidders_record, compare_bids=highest_bid, save_winner_name=winner_name)
+    return True
 
 
 def play(bidders_record:dict[str,float]) -> None:
+    '''
+    Start the bidding
 
+    parameters:
+        - bidders_record:dict[str,float]
+
+    return: None
+    '''
     while True:
     
         name:str = input("What is your name?: ")
