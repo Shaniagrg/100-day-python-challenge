@@ -1,25 +1,32 @@
-def play(bidders_record):
+def winner_check(all_bidders_record:dict[str,float], compare_bids:float, save_winner_name:str) -> None:
+        for key,value in all_bidders_record.items():
+            if value > compare_bids:
+                compare_bids = value
+                save_winner_name = key
+        print(f"The highest bidder is {save_winner_name} with a ${compare_bids}.")
+        print("Thank you for participation.")
+     
+
+def total_bidders(all_bidders_record:dict[str,float]) -> bool:
+        highest_bid:float = 0.0
+        winner_name:str = ""
+        winner_check(all_bidders_record, compare_bids=highest_bid, save_winner_name=winner_name)
+        return True
+
+
+def play(bidders_record:dict[str,float]) -> None:
 
     while True:
     
         name:str = input("What is your name?: ")
         bid_price:float = float(input("How much would you like to bid?: $"))
         bidders_record[name] = bid_price
-        #print(bidders)
         
         print("Are there any other bidders for this auction? Type 'yes' or 'no'.")
         other_bidders:str = input()
         
         if other_bidders == "no":
-            
-            highest_bid:float = 0.0
-            winner_name:str = ""
-            for key,value in bidders_record.items():
-                if value > highest_bid:
-                    highest_bid = value
-                    winner_name = key
-            print(f"The highest bidder is {winner_name} with a ${highest_bid}.")
-            print("Thank you for participation.")
+            total_bidders(bidders_record)
             break
         elif other_bidders == "yes":
             continue        
