@@ -1,18 +1,5 @@
-def convert_message_to_decode(letters_index:list[str],secret_message:str,secret:int) -> str:
-    '''
-    Decode the message by concating the string to form a word 
 
-    parameters:
-        - letters_index: list[str]
-        - secret_message:str
-        - secret:int
-
-    returns: str
-    '''
-    secret_message = secret_message + letters_index[secret] 
-    return secret_message
-
-def convert_message_to_encode(letters_index:list[str],secret_message:str,secret:int) -> str:
+def convert_message_to_decode(letters_index:list[str], i:int, shift_number:int) -> str:
     '''
     Encode the message by concating the string to form a word 
 
@@ -23,10 +10,26 @@ def convert_message_to_encode(letters_index:list[str],secret_message:str,secret:
 
     returns: str
     '''
-    secret_message = secret_message + letters_index[secret]
+    secret:int = (i - shift_number) % 26   
+    secret_message:str = letters_index[secret]
     return secret_message
 
-def letter_position(letters_index:list[str],convert_message_to:str,shift_number:int,secret_message:str,current_letter:str) -> str:
+def convert_message_to_encode(letters_index:list[str], i:int, shift_number:int) -> str:
+    '''
+    Encode the message by concating the string to form a word 
+
+    parameters:
+        - letters_index: list[str]
+        - secret_message:str
+        - secret:int
+
+    returns: str
+    '''
+    secret:int = (i + shift_number) % 26   
+    secret_message:str = letters_index[secret]
+    return secret_message
+
+def letter_position(letters_index:list[str] , convert_message_to:str , shift_number:int , current_letter:str) -> str:
     '''
     Position the letter serially and change based on shift number
 
@@ -41,15 +44,14 @@ def letter_position(letters_index:list[str],convert_message_to:str,shift_number:
     '''
     for i in range(0,len(letters_index),1):
         if current_letter == letters_index[i]:  
-            if convert_message_to == "encode":
-                secret:int = (i + int(shift_number)) % 26   
-                return convert_message_to_encode(letters_index,secret_message,secret)
+            if convert_message_to == "encode":   
+                return convert_message_to_encode(letters_index, i ,shift_number)
                 
             elif convert_message_to == "decode":
-                secret: int = (i - int(shift_number)) % 26  # minus - shift backward
-                return convert_message_to_decode(letters_index,secret_message,secret)
+                return convert_message_to_decode(letters_index, i , shift_number)
                   
     
+
 def create_message(convert_message_to:str, letters_index:list[str]) -> None:
     '''
     Create message and the computer will encrypt/decrypt for you
@@ -63,11 +65,12 @@ def create_message(convert_message_to:str, letters_index:list[str]) -> None:
     print("Type your message:")
     message:str = input("")
     print("Type the shift number:")
-    shift_number:int = input("")
-    secret_message:str = ""
+    shift_number:int = int(input(""))
+    convert_message_to_secret:str = ""
     for ind in range(0,len(message),1):
         current_letter:str = message[ind]
-    print(f"Here's the result: '{letter_position(letters_index,convert_message_to,shift_number,secret_message,current_letter)}'.")
+        convert_message_to_secret = convert_message_to_secret + letter_position(letters_index , convert_message_to , shift_number , current_letter)
+    print(f"Here's the result: '{convert_message_to_secret}'.")
     return None
 
 def play() -> None:
@@ -85,15 +88,21 @@ def play() -> None:
 
         print("Type 'encode' to encrypt, type 'decode' to decrypt:")
         type_word:str = input("")   
+        if type_word == "encode" or type_word == "decode":
+            create_message(convert_message_to=type_word,letters_index=letters)
 
-        create_message(convert_message_to=type_word,letters_index=letters)
+        else:
+            print ("Type the word correctly")
+            continue
 
         print("Do you want to run this program again?")
         yes_no:str = input("Type 'yes' or 'no': ")
         if yes_no == "no":
             print("Goodbye")
             break
-
+        elif yes_no == "yes":
+            continue
+        
 def main() -> None:
     play()
     
