@@ -1,30 +1,12 @@
-def winner_check(all_bidders_record:dict[str,float], compare_bids:float, save_winner_name:str) -> None:
-        
-    '''
-    Check serially 1st iteration then 2nd until the end of the map
-    Then store the highest bidder and declare
 
 
-    parameters:
-        - all_bidders_record:dict[str,float]
-        - compare_bids:float
-        - save_winner_name:str
-
-    returns: None
-    '''
-    for key,value in all_bidders_record.items():
-        if value > compare_bids:
-            compare_bids = value
-            save_winner_name = key
-    print(f"The highest bidder is {save_winner_name} with a ${compare_bids}.")
-    print("Thank you for participation.")
-     
-
-def total_bidders(all_bidders_record:dict[str,float]) -> bool:
+def total_bidders(all_bidders_record:dict[str,float]) -> None:
     
     '''
-    Use the final bidders value to check for the winner
-    Store the highest bid everytime you compare and save the name 
+    Use the all_bidders_record as refrence to know the winner
+    Store the highest bid everytime you compare with the name 
+    Check serially 1st iteration then 2nd until the end of the map
+    Then store the highest bidder and declare
 
     parameters:
         - all_bidders_record:dict[str,float]
@@ -33,8 +15,13 @@ def total_bidders(all_bidders_record:dict[str,float]) -> bool:
     '''
     highest_bid:float = 0.0
     winner_name:str = ""
-    winner_check(all_bidders_record, compare_bids=highest_bid, save_winner_name=winner_name)
-    return True
+    for key,value in all_bidders_record.items():
+        if value > highest_bid:
+            highest_bid = value
+            winner_name = key
+    print(f"The highest bidder is {winner_name} with a ${highest_bid}.")
+    print("Thank you for participation.")
+    return 
 
 
 def play(bidders_record:dict[str,float]) -> None:
@@ -60,7 +47,7 @@ def play(bidders_record:dict[str,float]) -> None:
             break
         elif other_bidders == "yes":
             continue        
-
+        return
 def main() -> None:
     print("Welcome to the private bidding auction")
     bidders:dict[str,float] = {}
