@@ -48,28 +48,7 @@ def letter_position(letters_index:list[str],convert_message_to:str,shift_number:
             elif convert_message_to == "decode":
                 secret: int = (i - int(shift_number)) % 26  # minus - shift backward
                 return convert_message_to_decode(letters_index,secret_message,secret)
-                
-                
-
-def change_message(letters_index:list[str],convert_message_to:str,shift_number:str,message:str) -> None:
-    '''
-    first transfer the message and list of letters
-    Then convert the message
-
-    parameters:
-        - letters_index: list[str]
-        - convert_message_to: str
-        - shift_number: str
-        - message: str
-
-    returns: str
-    '''
-    secret_message:str = ""
-    for ind in range(0,len(message),1):
-        current_letter:str = message[ind]
-    print(f"Here's the result: '{letter_position(letters_index,convert_message_to,shift_number,secret_message,current_letter)}'.")
-    return None
-    
+                  
     
 def create_message(convert_message_to:str, letters_index:list[str]) -> None:
     '''
@@ -85,7 +64,10 @@ def create_message(convert_message_to:str, letters_index:list[str]) -> None:
     message:str = input("")
     print("Type the shift number:")
     shift_number:int = input("")
-    change_message(letters_index,convert_message_to,shift_number,message)
+    secret_message:str = ""
+    for ind in range(0,len(message),1):
+        current_letter:str = message[ind]
+    print(f"Here's the result: '{letter_position(letters_index,convert_message_to,shift_number,secret_message,current_letter)}'.")
     return None
 
 def play() -> None:
