@@ -1,12 +1,13 @@
 
 def convert_message_to_decode(letters_index:list[str], i:int, shift_number:int) -> str:
     '''
-    Encode the message by concating the string to form a word 
+    Decode the message 
 
     parameters:
         - letters_index: list[str]
-        - secret_message:str
-        - secret:int
+        - i:int
+        - shift_number:int
+
 
     returns: str
     '''
@@ -16,12 +17,12 @@ def convert_message_to_decode(letters_index:list[str], i:int, shift_number:int) 
 
 def convert_message_to_encode(letters_index:list[str], i:int, shift_number:int) -> str:
     '''
-    Encode the message by concating the string to form a word 
+    Encode the message  
 
     parameters:
         - letters_index: list[str]
-        - secret_message:str
-        - secret:int
+        - i:int
+        - shift_number:int
 
     returns: str
     '''
@@ -35,10 +36,9 @@ def letter_position(letters_index:list[str] , convert_message_to:str , shift_num
 
     parameters:
         - letters_index: list[str]
-        - current_letter:str
         - convert_message_to:str
-        - secret_message:str
         - shift_number:int
+        - current_letter:str
 
     returns: str
     '''
@@ -49,12 +49,11 @@ def letter_position(letters_index:list[str] , convert_message_to:str , shift_num
                 
             elif convert_message_to == "decode":
                 return convert_message_to_decode(letters_index, i , shift_number)
-                  
-    
 
 def create_message(convert_message_to:str, letters_index:list[str]) -> None:
     '''
     Create message and the computer will encrypt/decrypt for you
+    Eveytime its looping it will concat the letters in convert_message_to_secret to genertae the message 
     
     parameters: 
         - convert_message_to:str
