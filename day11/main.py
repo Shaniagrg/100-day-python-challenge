@@ -12,13 +12,16 @@ deck_map: dict[str, list[int]] = {
     'Spades': [ace, 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10 , jack, queen, king]
 }
 
-computer_card:int = 0
-my_card:int = 0 
+computer_card:list[int] = [0,0]
+my_card:list[int] = [0,0]
 for key,value in deck_map.items():
-    computer_card = random.choice(value)
-    if computer_card == ace:
+    computer_card = [random.choice(value), random.choice(value)]
+    my_card = [random.choice(value), random.choice(value)]
+    if computer_card == ace or my_card == ace:
         computer_card = random.choice(ace)
+        my_card = random.choice(ace)
 print(computer_card)
+print(my_card)
 
 #2 card each = random + random 
 #Ask continue or end
