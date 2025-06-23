@@ -15,9 +15,21 @@ def sum_cards(sum:list[int]) -> int:
     return sum_cards_value
 
 def ace_conversion(convert:list[str]) -> str:
+    '''
+    - sum the total value from convert and store in total_value type int
+    - use total_value to determine the value of ace
+    - store the ace value in ace_value_determine as string 
+
+    parameter:
+        - convert:list[str]
+
+    return:
+        - string
+    
+    '''
     total_value:int = 0
     ace_value_determine:str = ""
-    
+
     for i in range(0,len(convert),1):
         if convert[i] == "ace":
             continue
@@ -33,7 +45,7 @@ def ace_conversion(convert:list[str]) -> str:
 
 def convert_value(convert:list[str]) -> list[int]:
     '''
-    - convert the jack,queen and king to "10" and ace to "11"
+    - convert the jack,queen and king to "10" and ace to "11" or "1" in strings 
     - then type converion from list[string] to list[int]
 
     parameters:
