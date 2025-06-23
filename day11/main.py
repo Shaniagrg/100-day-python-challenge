@@ -14,6 +14,22 @@ def sum_cards(sum:list[int]) -> int:
         sum_cards_value = sum_cards_value + sum[i]
     return sum_cards_value
 
+def ace_conversion(convert:list[str]) -> str:
+    total_value:int = 0
+    ace_value_determine:str = ""
+    
+    for i in range(0,len(convert),1):
+        if convert[i] == "ace":
+            continue
+        else:
+            total_value = total_value + int(convert[i])
+
+    if total_value >= 10:
+        ace_value_determine = "11"
+        return ace_value_determine
+    elif total_value < 11:
+        ace_value_determine = "1"
+        return ace_value_determine
 
 def convert_value(convert:list[str]) -> list[int]:
     '''
@@ -31,11 +47,8 @@ def convert_value(convert:list[str]) -> list[int]:
         if convert[i] == "jack" or convert[i] == "queen" or convert[i] == "king":
             convert[i] = "10"
         elif convert[i] == "ace":
-            convert[i] = "11"
-            
-            #if int(dealer[i]) >= 10:
-            #elif int(dealer[i]) < 11:
-                #dealer[i] == "1"
+            convert[i] = ace_conversion(convert)
+
     for ind in range(0,len(convert),1):
         convert[ind] = int(convert[ind])
     return convert
@@ -108,13 +121,14 @@ def play(deck_map:dict[str, list[str]],pairs_of_cards:list[list[str]]) -> None:
 
     print(f"Your cards: {my_card}")
     print(f"The computer's first card: {computer_card['hand1'][0]}")
+
     initial_21_check:str = check_21(user=my_card["hand1"],dealer=computer_card["hand1"])
     if initial_21_check == "You lost":
         print("You lost the game")
     elif initial_21_check == "You Win!!!":
         print("You won the game")
-    else:
-        print("continue")
+    
+
 
 
 def main() -> None:
