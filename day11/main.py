@@ -1,4 +1,5 @@
 import random
+        
 def sum_cards(sum:list[int]) -> int:
     '''
     - sum the cards 
@@ -16,7 +17,7 @@ def sum_cards(sum:list[int]) -> int:
 
 def ace_conversion(convert:list[str]) -> str:
     '''
-    - sum the total value from convert and store in total_value type int
+    - sum the total value from convert[list[str]] and store in total_value type int
     - use total_value to determine the value of ace
     - store the ace value in ace_value_determine as string 
 
@@ -33,8 +34,11 @@ def ace_conversion(convert:list[str]) -> str:
     for i in range(0,len(convert),1):
         if convert[i] == "ace":
             continue
+        elif convert[i] == "jack" or convert[i] == "queen" or convert[i] == "king":
+            total_value = total_value + 10
         else:
             total_value = total_value + int(convert[i])
+
 
     if total_value >= 10:
         ace_value_determine = "11"
@@ -107,6 +111,10 @@ def play(deck_map:dict[str, list[str]],pairs_of_cards:list[list[str]]) -> None:
     computer_card:dict[str, list[str]] = {"hand1": []}
     my_card:dict[str, list[str]] = {"hand1": []}
 
+
+    ######## Receive 2 cards for each #########
+
+
     for i in range (0,2,1):
 
         while True:
@@ -134,11 +142,21 @@ def play(deck_map:dict[str, list[str]],pairs_of_cards:list[list[str]]) -> None:
     print(f"Your cards: {my_card}")
     print(f"The computer's first card: {computer_card['hand1'][0]}")
 
+
+    ########### check 21 in initial phase ########
+
     initial_21_check:str = check_21(user=my_card["hand1"],dealer=computer_card["hand1"])
     if initial_21_check == "You lost":
         print("You lost the game")
     elif initial_21_check == "You Win!!!":
         print("You won the game")
+    
+
+    ##########    split    ############
+
+    #my_card = split_check(my_card)
+    print(my_card)
+    continue_game:str = input("Type 'y' to get another card, type 'n' to pass: ")
     
 
 
