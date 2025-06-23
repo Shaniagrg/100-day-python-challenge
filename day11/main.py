@@ -1,5 +1,59 @@
 import random
-        
+def append_value(deck_map:dict[str, list[str]],used_cards:list[list[str]], my_card:dict[str, list[int]]):
+
+    '''
+    - Choose ramdom key then value
+    - append used_cards to avoid repetition
+    - appned random_value to the my_card and convert to int
+
+    parameter:
+        - deck_map:dict[str, list[str]]
+        - used_cards:list[list[str]]
+        - my_card:dict[str, list[int]]
+
+    return:
+        -  dict[str, list[int]]
+    '''
+    while True:
+        random_key:str = random.choice(list(deck_map.keys()))
+        random_value:str = random.choice(deck_map[random_key])
+        random_key_value:list[str] = [random_key,random_value]
+        if random_key_value in used_cards:
+            continue
+        else:
+            used_cards.append(random_key_value)
+            my_card["hand1"].append(random_value)
+            convert_value(my_card["hand1"])
+            return my_card
+
+def split_check(deck_map:dict[str, list[str]],used_cards:list[list[str]],my_card:dict[str, list[int]]) -> dict[str, list[int]]:
+
+    '''
+    - when user gets same card ask for split/add/pass
+    - if split: user will have 2 individual cards instead of one
+    - if add: just append calling append_value function
+    - if pass: stay at it is
+
+    parameter:
+        - deck_map:dict[str, list[str]]
+        - used_cards:list[list[str]]
+        - my_card:dict[str, list[int]]
+
+    return:
+        -  dict[str, list[int]]
+    '''
+    if my_card["hand1"][0] == my_card["hand1"][1]:
+        continue_game:str = input("Type 'y' to get another card, type 'n' to pass, type 's' to split: ")
+        if continue_game == "s":
+            split_transfer: str = my_card["hand1"].pop()
+            my_card["hand2"] = [split_transfer]
+            return my_card
+        elif continue_game == "y":
+            my_card = append_value(deck_map,used_cards,my_card)
+            return my_card
+        elif continue_game == "n":
+            return my_card
+          
 def sum_cards(sum:list[int]) -> int:
     '''
     - sum the cards 
@@ -17,6 +71,8 @@ def sum_cards(sum:list[int]) -> int:
 
 def ace_conversion(convert:list[str]) -> str:
     '''
+    till here the list[str] its still string
+
     - sum the total value from convert[list[str]] and store in total_value type int
     - use total_value to determine the value of ace
     - store the ace value in ace_value_determine as string 
@@ -40,10 +96,10 @@ def ace_conversion(convert:list[str]) -> str:
             total_value = total_value + int(convert[i])
 
 
-    if total_value >= 10:
+    if total_value <= 10:
         ace_value_determine = "11"
         return ace_value_determine
-    elif total_value < 11:
+    elif total_value > 11:
         ace_value_determine = "1"
         return ace_value_determine
 
@@ -93,7 +149,7 @@ def check_21(user:list[str],dealer:list[str]) -> str:
     elif dealer_total > 21:
         return "You Win!!!"
     
-def play(deck_map:dict[str, list[str]],pairs_of_cards:list[list[str]]) -> None:
+def play(deck_map:dict[str, list[str]]) -> None:
 
     '''
     - ramdomly choose 2 values out from the 4 ramdom kayes for both computer and user
@@ -144,6 +200,7 @@ def play(deck_map:dict[str, list[str]],pairs_of_cards:list[list[str]]) -> None:
 
 
     ########### check 21 in initial phase ########
+    ######    here user/dealer value has chnaged to string -> int   ########
 
     initial_21_check:str = check_21(user=my_card["hand1"],dealer=computer_card["hand1"])
     if initial_21_check == "You lost":
@@ -154,8 +211,9 @@ def play(deck_map:dict[str, list[str]],pairs_of_cards:list[list[str]]) -> None:
 
     ##########    split    ############
 
-    #my_card = split_check(my_card)
+    my_card = split_check(deck_map,used_cards,my_card)
     print(my_card)
+
     continue_game:str = input("Type 'y' to get another card, type 'n' to pass: ")
     
 
@@ -179,22 +237,7 @@ def main() -> None:
         'Clubs': ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"],
         'Spades': ["ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king"]
     }
-    pairs:list[list[str]] = [
-        ["ace", "ace"],
-        ["jack", "jack"],
-        ["2", "2"],
-        ["3", "3"],
-        ["4", "4"],
-        ["5", "5"],
-        ["6", "6"],
-        ["7", "7"],
-        ["8", "8"],
-        ["9", "9"],
-        ["10", "10"],
-        ["queen", "queen"],
-        ["king", "king"]
-    ]
-    print (play(deck,pairs))
+    print (play(deck))
     
 
 if __name__ == '__main__': 
