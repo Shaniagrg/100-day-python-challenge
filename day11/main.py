@@ -47,7 +47,7 @@ while True:
                 sum_my_card = sum_cards(my_card["hand1"])
                 sum_computer_card = sum_cards(computer_card)
                 end_game(sum_my_card,sum_computer_card)
-            
+
     def sum_cards(sum:list[int]) -> int:
         '''
         - sum the cards 
@@ -148,7 +148,7 @@ while True:
 
         '''
         - ramdomly choose 2 values out from the 4 ramdom keys for both computer and user
-
+        - create a variable to store used_cards to avoid repetition
         parameter:
             - deck_map:dict[str, list[str]]
             - used_cards:list[list[str]]
@@ -167,7 +167,7 @@ while True:
                 used_cards.append(random_key_value)
                 return random_value
 
-    def append_value(deck_map:dict[str, list[str]], adding_card:dict[str, list[str]]) -> None:
+    def append_value(deck_map:dict[str, list[str]], adding_card:dict[str, list[str]], add_on_hand:str) -> None:
 
         '''
         - call function get_random_value to get random value
@@ -181,15 +181,28 @@ while True:
         return:
             -  None
         '''
-        append_random_value:str = get_random_value(deck_map)
-        adding_card["hand1"].append(append_random_value)
-        convert_value(adding_card["hand1"])
-  
+        if add_on_hand == "y":
+            append_random_value:str = get_random_value(deck_map)
+            adding_card["hand1"].append(append_random_value)
+            convert_value(adding_card["hand1"])
+        elif add_on_hand == "yes2":
+            append_random_value:str = get_random_value(deck_map)
+            adding_card["hand2"].append(append_random_value)
+            convert_value(adding_card["hand2"])
+        elif add_on_hand == "yes1":
+            append_random_value:str = get_random_value(deck_map)
+            adding_card["hand1"].append(append_random_value)
+            convert_value(adding_card["hand1"])
+        elif add_on_hand == "yes":
+            append_random_value:str = get_random_value(deck_map)
+            for key,value in adding_card.items():
+                adding_card[key].append(append_random_value)
+                convert_value(adding_card[key])
+            
     def play(deck_map:dict[str, list[str]]) -> None:
 
         '''
         - loop function append_value to get 2 values for computer/user
-        - create a variable to store used_cards to avoid repetition
         - call funtion to continue/split/end game
 
         parameters
@@ -201,13 +214,11 @@ while True:
         computer_card:dict[str, list[str]] = {"hand1": []}
         my_card:dict[str, list[str]] = {"hand1": []}
 
-
         ######## Receive 2 cards for each #########
 
-
         for i in range (0,2,1):
-            append_value(deck_map,adding_card=my_card)
-            append_value(deck_map,adding_card=computer_card)
+            append_value(deck_map,adding_card=my_card,add_on_hand="y")
+            append_value(deck_map,adding_card=computer_card,add_on_hand="y")
 
         print(f"Your cards: {my_card}")
         print(f"The computer's first card: {computer_card['hand1'][0]}")
@@ -222,13 +233,21 @@ while True:
         elif initial_21_check == "You Win!!!":
             print("You won the game")
         
-
         ##########    split    ############
 
         my_card = split_check(deck_map,my_card,computer_card["hand1"])
         print(my_card)
 
-        #continue_game:str = input("Type 'y' to get another card, type 'n' to pass: ")
+        continue_game:str = input("Type 'yes1' to get another card for first hand, 'yes2' to get another card for second hand, 'yes' to get another card for both hand, type 'n' to pass: ")
+        if continue_game == "yes1":
+            user_choice:str = "yes1"
+            append_value(deck_map,adding_card=my_card,add_on_hand=user_choice)
+        elif continue_game == "yes2":
+            user_choice: str = "yes2"
+            append_value(deck_map,adding_card=my_card,add_on_hand=user_choice)
+        elif continue_game == "yes":
+            user_choice: str = "yes"
+            append_value(deck_map,adding_card=my_card,add_on_hand=user_choice)
         
     def main() -> None:
         '''
