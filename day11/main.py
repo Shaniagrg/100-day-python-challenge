@@ -17,6 +17,77 @@ while True:
         elif sum_my_card < sum_computer_card:
             print("You lost =(")
     
+
+    def split_check(deck_map:dict[str, list[str]],my_card:dict[str, list[int]], computer_card:list[int]) -> dict[str, list[int]]:
+
+        '''
+        - when user gets same card ask for split/add/pass
+        - if split: user will have 2 individual cards instead of one
+        - if add: just append calling append_value function
+        - if pass: stay at it is
+
+        parameter:
+            - deck_map:dict[str, list[str]]
+            - used_cards:list[list[str]]
+            - my_card:dict[str, list[int]]
+
+        return:
+            -  dict[str, list[int]]
+        '''
+        if my_card["hand1"][0] == my_card["hand1"][1]:
+            continue_game:str = input("Type 'y' to get another card, type 'n' to pass, type 's' to split: ")
+            if continue_game == "s":
+                split_transfer: str = my_card["hand1"].pop()
+                my_card["hand2"] = [split_transfer]
+                return my_card
+            elif continue_game == "y":
+                my_card = append_value(deck_map,my_card)
+                return my_card
+            elif continue_game == "n":
+                sum_my_card = sum_cards(my_card["hand1"])
+                sum_computer_card = sum_cards(computer_card)
+                end_game(sum_my_card,sum_computer_card)
+            
+    def sum_cards(sum:list[int]) -> int:
+        '''
+        - sum the cards 
+
+        parameters:
+            - sum:list[int]
+        return:
+            - int
+        
+        '''
+        sum_cards_value:int = 0
+        for i in range(0,len(sum),1):
+            sum_cards_value = sum_cards_value + sum[i]
+        return sum_cards_value
+
+    def check_21(user:list[str],dealer:list[str]) -> str:
+
+        '''
+        - call function convert the value for jack,queen,ace and king
+        - call function to sum the card to check if its over 21 or not
+
+        parameter:
+            - user:list[str]
+            - dealer:list[str]
+        
+        return:
+            - string
+
+        '''
+        dealer_convert_to_int:list[int] = convert_value(convert=dealer)
+        user_convert_to_int:list[int] = convert_value(convert=user)
+
+        user_total:int = sum_cards(sum=user_convert_to_int)
+        dealer_total:int = sum_cards(sum=dealer_convert_to_int)
+
+        if user_total > 21:
+            return "You lost"
+        elif dealer_total > 21:
+            return "You Win!!!"
+      
     def ace_conversion(convert:list[str]) -> str:
             '''
             till here the list[str] its still string
@@ -73,7 +144,7 @@ while True:
             convert[ind] = int(convert[ind])
         return convert
     
-    def get_random_value(deck_map:dict[str, list[str]],used_cards:list[list[str]]) -> str:
+    def get_random_value(deck_map:dict[str, list[str]]) -> str:
 
         '''
         - ramdomly choose 2 values out from the 4 ramdom keys for both computer and user
@@ -85,6 +156,7 @@ while True:
         return
             - string
         '''
+        used_cards:list[list[str]]= []
         while True:
             random_key:str = random.choice(list(deck_map.keys()))
             random_value:str = random.choice(deck_map[random_key])
@@ -95,7 +167,7 @@ while True:
                 used_cards.append(random_key_value)
                 return random_value
 
-    def append_value(deck_map:dict[str, list[str]],used_cards:list[list[str]], adding_card:dict[str, list[str]]) -> None:
+    def append_value(deck_map:dict[str, list[str]], adding_card:dict[str, list[str]]) -> None:
 
         '''
         - call function get_random_value to get random value
@@ -109,81 +181,10 @@ while True:
         return:
             -  None
         '''
-        append_random_value:str = get_random_value(deck_map,used_cards)
+        append_random_value:str = get_random_value(deck_map)
         adding_card["hand1"].append(append_random_value)
         convert_value(adding_card["hand1"])
-
-    def split_check(deck_map:dict[str, list[str]],used_cards:list[list[str]],my_card:dict[str, list[int]], computer_card:list[int]) -> dict[str, list[int]]:
-
-        '''
-        - when user gets same card ask for split/add/pass
-        - if split: user will have 2 individual cards instead of one
-        - if add: just append calling append_value function
-        - if pass: stay at it is
-
-        parameter:
-            - deck_map:dict[str, list[str]]
-            - used_cards:list[list[str]]
-            - my_card:dict[str, list[int]]
-
-        return:
-            -  dict[str, list[int]]
-        '''
-        if my_card["hand1"][0] == my_card["hand1"][1]:
-            continue_game:str = input("Type 'y' to get another card, type 'n' to pass, type 's' to split: ")
-            if continue_game == "s":
-                split_transfer: str = my_card["hand1"].pop()
-                my_card["hand2"] = [split_transfer]
-                return my_card
-            elif continue_game == "y":
-                my_card = append_value(deck_map,used_cards,my_card)
-                return my_card
-            elif continue_game == "n":
-                sum_my_card = sum_cards(my_card["hand1"])
-                sum_computer_card = sum_cards(computer_card)
-                end_game(sum_my_card,sum_computer_card)
-            
-    def sum_cards(sum:list[int]) -> int:
-        '''
-        - sum the cards 
-
-        parameters:
-            - sum:list[int]
-        return:
-            - int
-        
-        '''
-        sum_cards_value:int = 0
-        for i in range(0,len(sum),1):
-            sum_cards_value = sum_cards_value + sum[i]
-        return sum_cards_value
-
-
-    def check_21(user:list[str],dealer:list[str]) -> str:
-
-        '''
-        - call function convert the value for jack,queen,ace and king
-        - call function to sum the card to check if its over 21 or not
-
-        parameter:
-            - user:list[str]
-            - dealer:list[str]
-        
-        return:
-            - string
-
-        '''
-        dealer_convert_to_int:list[int] = convert_value(convert=dealer)
-        user_convert_to_int:list[int] = convert_value(convert=user)
-
-        user_total:int = sum_cards(sum=user_convert_to_int)
-        dealer_total:int = sum_cards(sum=dealer_convert_to_int)
-
-        if user_total > 21:
-            return "You lost"
-        elif dealer_total > 21:
-            return "You Win!!!"
-        
+  
     def play(deck_map:dict[str, list[str]]) -> None:
 
         '''
@@ -196,7 +197,7 @@ while True:
         return
             -  None
         '''
-        used_cards:list[list[str]]= []
+    
         computer_card:dict[str, list[str]] = {"hand1": []}
         my_card:dict[str, list[str]] = {"hand1": []}
 
@@ -205,8 +206,8 @@ while True:
 
 
         for i in range (0,2,1):
-            append_value(deck_map,used_cards,adding_card=my_card)
-            append_value(deck_map,used_cards,adding_card=computer_card)
+            append_value(deck_map,adding_card=my_card)
+            append_value(deck_map,adding_card=computer_card)
 
         print(f"Your cards: {my_card}")
         print(f"The computer's first card: {computer_card['hand1'][0]}")
@@ -224,7 +225,7 @@ while True:
 
         ##########    split    ############
 
-        my_card = split_check(deck_map,used_cards,my_card,computer_card["hand1"])
+        my_card = split_check(deck_map,my_card,computer_card["hand1"])
         print(my_card)
 
         #continue_game:str = input("Type 'y' to get another card, type 'n' to pass: ")
