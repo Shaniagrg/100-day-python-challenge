@@ -1,131 +1,171 @@
 import random
-def continue_with_split_both(user_card_spliting:dict[str,list[str]],  computer_card_splitting:dict[str,list[str]], append_1:str, appennd_2:str) -> None:
-    user_choice: str = "yes"
+def decesion(my_card,computer_card):
     while True:
-        append_value(adding_card=user_card_spliting,add_on_hand=user_choice)
-        winner_decide_for_21 = check_21(user = user_card_spliting["hand1"], dealer=computer_card_splitting["hand1"])
-        if winner_decide_for_21 == "You Win!!!":
-            print("You won!!!!!")
-            break
-        elif winner_decide_for_21 == "You lost":
-            print("You lost")
-            break
-        elif winner_decide_for_21 == "continue":
-            continue
-        
-        
-        winner_decide_for_21 = check_21(user =user_card_spliting["hand2"], dealer=computer_card_splitting["hand1"])
-        if winner_decide_for_21 == "You Win!!!":
-            print("You won!!!!!")
-            break
-        elif winner_decide_for_21 == "You lost":
-            print("You lost")
-            break
-        elif winner_decide_for_21 == "continue":
-            continue
+            continue_game = input("Type 'y' to add another card or type 'n' to pass: ")
+            if continue_game == 'y':
+                append_value(adding_card=my_card,add_on_hand='y')
+                winner_decide_for_21:str = check_21(user=my_card["hand1"], dealer=computer_card["hand1"])
+                #end_game(sum_my_card=user_total, sum_computer_card=dealer_total)
+                print(my_card)
+                if winner_decide_for_21 == "You Win!!!":
+                    print("You won!!!!!")
+                    break
+                elif winner_decide_for_21 == "You lost":
+                    print("You lost")
+                    break
+                elif winner_decide_for_21 == "continue":
+                    continue
+                
+            elif continue_game == 'n':
+                print(my_card)
+                print(computer_card)
+                convert_user_for_total:list[str] = convert_value(my_card["hand1"])
+                convert_dealer_for_total:list[str] = convert_value(computer_card["hand1"])
 
-def continue_with_split_2(user_card_spliting:dict[str,list[str]],  computer_card_splitting:dict[str,list[str]], append_1:str, appennd_2:str) -> None:
-    winner_decide_for_21:str = ""
-    user_choice:str = ""
-    print(f"Your first individual card [{user_card_spliting['hand1']}] and your second individual card {user_card_spliting['hand2']}")
-    while True:
-        continue_game:str = input("Type 'yes1' to get another card for first hand, 'yes2' to get another card for second hand, 'yes' to get another card for both hand, type 'n' to pass: ")
-        if continue_game == append_1:
-            user_choice = append_1 #yes2
-            append_value(adding_card=user_card_spliting,add_on_hand=user_choice)
-            winner_decide_for_21 = check_21(user=user_card_spliting["hand2"], dealer=computer_card_splitting["hand1"])
+                user_total_for_winner:int = sum_cards(convert_user_for_total)
+                dealer_total_decide:int = sum_cards(convert_dealer_for_total)
+
+                winner = end_game(sum_my_card=user_total_for_winner, sum_computer_card=dealer_total_decide)
+                if winner == "You Win!!!":
+                    print("You won!!!!!")
+        
+                elif winner == "You lost =(":
+                    print("You lost")
+                
+                break
             
-            if winner_decide_for_21 == "You Win!!!":
-                print(f"You won for the second hand {user_card_spliting['hand2']}")
-                print("If you still want to continue.")
-                while True:
-                    continue_game = input("Type 'yes1' to get another card for first hand, type 'n' to pass: ")
-                    if continue_game == appennd_2:
-                        user_choice = appennd_2 #yes1
-                        append_value(adding_card=user_card_spliting,add_on_hand=user_choice)
-                        winner_decide_for_21 = check_21(user = user_card_spliting["hand1"], dealer=computer_card_splitting["hand1"])
-                        if winner_decide_for_21 == "You Win!!!":
-                            print(f"You won for the first hand {user_card_spliting['hand1']}")
-                            break
-                        elif winner_decide_for_21 == "You lost":
-                            print(f"You lost for the first hand {user_card_spliting['hand1']}")
-                            break
-                        elif winner_decide_for_21 == "continue":
-                            continue
-                break
-            elif winner_decide_for_21 == "You lost":
-                print(f"You lost for the second hand {user_card_spliting['hand2']}")
-                print("If you still want to continue.")
-                while True:
-                    continue_game = input("Type 'yes2' to get another card for first hand, type 'n' to pass: ")
-                    if continue_game == appennd_2:
-                        user_choice: str = appennd_2
-                        append_value(adding_card=user_card_spliting,add_on_hand=user_choice)
-                        winner_decide_for_21 = check_21(user = user_card_spliting["hand1"], dealer=computer_card_splitting["hand1"])
-                        if winner_decide_for_21 == "You Win!!!":
-                            print(f"You won for the first hand {user_card_spliting['hand1']}")
-                            break
-                        elif winner_decide_for_21 == "You lost":
-                            print(f"You lost for the first hand {user_card_spliting['hand1']}")
-                            break
-                        elif winner_decide_for_21 == "continue":
-                            continue
-                break
+def split(user_card_splited,computer_card_split_check_with_user) -> None:
+    print(user_card_splited)
+    hand_1 = {"hand1": []}
+    hand_2 = {"hand2": []}
 
+    user_choice = ""
+    winner_decide_for_21:str = ""
+
+    remove_hand:str = ""
+    message:str = ""
+    for key,value in user_card_splited.items():
+            hand_1['hand1'].append(user_card_splited[key][0])
+            hand_2['hand2'].append(user_card_splited[key][0])
+
+    continue_game:str = input("Type 'yes1' to get another card for first hand, 'yes2' to get another card for second hand, 'yes' to get another card for both hand, type 'n' to pass: ")
+    
+    while True:
+        if remove_hand == "delete1" and  message == "hand_1 doesn't exist":
+            continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
+        elif remove_hand == "delete2" and message == "hand_2 doesn't exist":
+            continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
+        
+
+        if continue_game == "yes1":
+            user_choice = "yes1"
+            append_value(adding_card = hand_1,add_on_hand = user_choice)
+            winner_decide_for_21 = check_21(user=hand_1['hand1'], dealer=computer_card_split_check_with_user['hand1'])
+            if winner_decide_for_21 == "You Win!!!":
+                    print("You won!!!!! first hand")
+                    del hand_1
+                    remove_hand = "delete1"
+                    message = "hand_1 doesn't exist"
+                    #continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
+                    continue
+            elif winner_decide_for_21 == "You lost":
+                print("You lost")
+                del hand_1
+                remove_hand = "delete1"
+                message == "hand_1 doesn't exist"
+                #continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
+                continue
+            elif winner_decide_for_21 == "continue":
+                continue
+
+        elif continue_game == "yes2":
+            user_choice = "yes2"
+            append_value(adding_card = hand_2,add_on_hand = user_choice)
+            winner_decide_for_21 = check_21(user=hand_2['hand2'], dealer=computer_card_split_check_with_user['hand1'])
+            if winner_decide_for_21 == "You Win!!!":
+                    print("You won!!!!! second hand")
+                    del hand_2
+                    remove_hand = "delete2"
+                    message == "hand_2 doesn't exist"
+                    #continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
+                    continue
+            elif winner_decide_for_21 == "You lost":
+                print("You lost")
+                del hand_2
+                remove_hand = "delete2"
+                message == "hand_2 doesn't exist"
+                #continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
+                continue
+            elif winner_decide_for_21 == "continue":
+                continue
+
+        elif continue_game == "yes":
+            user_choice = "yes"
+            append_value(adding_card = hand_1,add_on_hand = user_choice)
+            winner_decide_for_21_hand1= check_21(user=hand_2['hand1'], dealer=computer_card_split_check_with_user['hand1'])
+            
+            append_value(adding_card = hand_2,add_on_hand = user_choice)
+            winner_decide_for_21_hand2 = check_21(user=hand_2['hand2'], dealer=computer_card_split_check_with_user['hand1'])
+
+            if winner_decide_for_21_hand1 == "You Win!!!" or winner_decide_for_21_hand2 == "You Win!!!":
+                    if winner_decide_for_21_hand1 == "You Win!!!":
+                        print("You won!!!!! first hand")
+                        del hand_1
+                        continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
+                        continue
+                    elif winner_decide_for_21_hand2 == "You Win!!!":
+                        print("You won!!!!! second hand")
+                        del hand_2
+                        continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
+                        continue
+
+            elif winner_decide_for_21_hand1 == "You lost" or  winner_decide_for_21_hand2 == "You lost":
+                if winner_decide_for_21_hand1 == "You lost":
+                    print("You lost")
+                    del hand_1
+                    continue_game = input("Type 'yes1' to get another card for second hand or type 'n' to pass: ")
+                    continue
+                elif winner_decide_for_21_hand2 == "You lost":
+                    print("You lost")
+                    del hand_2
+                    continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
+                    continue
 
             elif winner_decide_for_21 == "continue":
-                continue   
-def continue_with_split_1 (user_card_spliting:dict[str,list[str]],  computer_card_splitting:dict[str,list[str]], append_1:str, appennd_2:str) -> None:
-    winner_decide_for_21:str = ""
-    user_choice:str = ""
-    print(f"Your first individual card [{user_card_spliting['hand1']}] and your second individual card {user_card_spliting['hand2']}")
-    while True:
-        continue_game:str = input("Type 'yes1' to get another card for first hand, 'yes2' to get another card for second hand, 'yes' to get another card for both hand, type 'n' to pass: ")
-        if continue_game == append_1:
-            user_choice = append_1 #yes1
-            append_value(adding_card=user_card_spliting,add_on_hand=user_choice)
-            winner_decide_for_21 = check_21(user=user_card_spliting["hand1"], dealer=computer_card_splitting["hand1"])
+                continue
+
+        elif continue_game == "n":
+            print(user_card_splited)
+            print(computer_card_split_check_with_user)
+            convert_user_for_total_hand1:list[str] = convert_value(user_card_splited['hand1'])
+            convert_user_for_total_hand2:list[str] = convert_value(user_card_splited['hand2'])
+            convert_dealer_for_total:list[str] = convert_value(computer_card_split_check_with_user['hand1'])
+
+            user_total_for_winner_hand1:int = sum_cards(convert_user_for_total_hand1)
+            user_total_for_winner_hand2:int = sum_cards(convert_user_for_total_hand2)
+            dealer_total_decide:int = sum_cards(convert_dealer_for_total)
+
+            winner_hand1 = end_game(sum_my_card=user_total_for_winner_hand1, sum_computer_card=dealer_total_decide)
+            winner_hand2 = end_game(sum_my_card=user_total_for_winner_hand2, sum_computer_card=dealer_total_decide)
+            if winner_hand1 == "You Win!!!" or winner_hand2 == "You Win!!!" :
+                if winner_hand1 == "You Win!!!":
+                    print(f"You won!!!!! first hand {user_card_splited['hand1']}")
+                elif winner_hand2 == "You Win!!!":
+                    print(f"You won!!!!! first hand {user_card_splited['hand2']}")
+    
+            elif winner_hand1 == "You lost =(" or winner_hand2 == "You lost =(" :
+                if winner_hand1 == "You lost =(":
+                    print(f"You lost first hand {user_card_splited['hand1']}")
+                elif winner_hand2 == "You lost =(":
+                    print(f"You lost second hand {user_card_splited['hand2']}")
             
-            if winner_decide_for_21 == "You Win!!!":
-                print(f"You won for the first hand {user_card_spliting['hand1']}")
-                print("If you still want to continue.")
-                while True:
-                    continue_game = input("Type 'yes2' to get another card for second hand, type 'n' to pass: ")
-                    if continue_game == appennd_2:
-                        user_choice = appennd_2 #yes2
-                        append_value(adding_card=user_card_spliting,add_on_hand=user_choice)
-                        winner_decide_for_21 = check_21(user = user_card_spliting["hand2"], dealer=computer_card_splitting["hand1"])
-                        if winner_decide_for_21 == "You Win!!!":
-                            print(f"You won for the second hand {user_card_spliting['hand2']}")
-                            break
-                        elif winner_decide_for_21 == "You lost":
-                            print(f"You lost for the second hand {user_card_spliting['hand2']}")
-                            break
-                        elif winner_decide_for_21 == "continue":
-                            continue
-                break
-            elif winner_decide_for_21 == "You lost":
-                print(f"You lost for the first hand {user_card_spliting['hand1']}")
-                print("If you still want to continue.")
-                while True:
-                    continue_game = input("Type 'yes2' to get another card for first hand, type 'n' to pass: ")
-                    if continue_game == appennd_2:
-                        user_choice: str = appennd_2
-                        append_value(adding_card=user_card_spliting,add_on_hand=user_choice)
-                        winner_decide_for_21 = check_21(user = user_card_spliting["hand2"], dealer=computer_card_splitting["hand1"])
-                        if winner_decide_for_21 == "You Win!!!":
-                            print(f"You won for the second hand {user_card_spliting['hand2']}")
-                            break
-                        elif winner_decide_for_21 == "You lost":
-                            print(f"You lost for the second hand {user_card_spliting['hand2']}")
-                            break
-                        elif winner_decide_for_21 == "continue":
-                            continue
-                break
-
-
-            elif winner_decide_for_21 == "continue":
-                continue   
+            elif winner_hand1 == "You Win!!!" and winner_hand2 == "You Win!!!" :
+                print(f"You won!!!!! both hand {user_card_splited}")
+    
+            elif winner_hand1 == "You lost =(" and winner_hand2 == "You lost =(" :
+                    print(f"You lost both hand {user_card_splited}")
+            
+        break
 
 def end_game(sum_my_card:int,sum_computer_card:int) -> str:
 
@@ -350,11 +390,17 @@ def append_value(adding_card:dict[str, list[str]], add_on_hand:str) -> bool:
         adding_card["hand1"].append(append_random_value)
         #convert_value(adding_card["hand1"])
         return True
+    
     elif add_on_hand == "yes":
         append_random_value:str = get_random_value()
+        adding_card["hand1"].append(append_random_value)
+        append_random_value:str = get_random_value()
+        adding_card["hand2"].append(append_random_value)
+        '''
         for key,value in adding_card.items():
             adding_card[key].append(append_random_value)
             #convert_value(adding_card[key])
+        '''
         return True
         
 def play() -> None:
@@ -383,7 +429,6 @@ def play() -> None:
 
 
     ########### check 21 in initial phase ########
-    ######    here user/dealer value has chnaged to string -> int   ########
     '''
     initial_21_check:str = check_21(user=my_card["hand1"],dealer=computer_card["hand1"])
     if initial_21_check == "You lost":
@@ -399,76 +444,21 @@ def play() -> None:
         ##########    split    ############
     
         option_to_split:str = split_check(my_card,computer_card["hand1"])
-        #winner_decide_for_21:str = ""
-        #user_input_1:str = ""
-        #user_input_2:str = ""
         
         if option_to_split == "split":
-            #user_input_1 = "yes1"
-            #user_input_2 = "yes2"
-            continue_with_split_1(user_card_spliting=my_card, computer_card_splitting=computer_card, append_1="yes1", appennd_2="yes2")
-            continue_with_split_2(user_card_spliting=my_card, computer_card_splitting=computer_card, append_1="yes2", appennd_2="yes1")
-            continue_with_split_both(user_card_spliting=my_card, computer_card_splitting=computer_card, append_1="yes")
+            split(user_card_splited=my_card,computer_card_split_check_with_user=computer_card)
             break
         
         elif option_to_split == "no split":
             continue_game_ask = input("Type 'y' to add another card or type 'n' to pass") 
             if continue_game_ask == 'y':
-                append_value(adding_card=my_card,add_on_hand=user_choice)
+                append_value(adding_card=my_card,add_on_hand= "y")
                 winner_decide_for_21 = check_21(user=str(my_card["hand1"]), dealer=str(computer_card["hand1"]))
             else:
-                print(my_card)
-                print(computer_card)
-                convert_user_for_total:list[str] = convert_value(my_card["hand1"])
-                convert_dealer_for_total:list[str] = convert_value(computer_card["hand1"])
-
-                user_total_for_winner:int = sum_cards(convert_user_for_total)
-                dealer_total_decide:int = sum_cards(convert_dealer_for_total)
-
-                winner = end_game(sum_my_card=user_total_for_winner, sum_computer_card=dealer_total_decide)
-                if winner == "You Win!!!":
-                    print("You won!!!!!")
-        
-                elif winner == "You lost =(":
-                    print("You lost")
-                
-                break
-    
+                decesion(my_card,computer_card)
             break
         
-        while True:
-            continue_game = input("Type 'y' to add another card or type 'n' to pass: ")
-            if continue_game == 'y':
-                append_value(adding_card=my_card,add_on_hand='y')
-                winner_decide_for_21:str = check_21(user=my_card["hand1"], dealer=computer_card["hand1"])
-                #end_game(sum_my_card=user_total, sum_computer_card=dealer_total)
-                print(my_card)
-                if winner_decide_for_21 == "You Win!!!":
-                    print("You won!!!!!")
-                    break
-                elif winner_decide_for_21 == "You lost":
-                    print("You lost")
-                    break
-                elif winner_decide_for_21 == "continue":
-                    continue
-                
-            elif continue_game == 'n':
-                print(my_card)
-                print(computer_card)
-                convert_user_for_total:list[str] = convert_value(my_card["hand1"])
-                convert_dealer_for_total:list[str] = convert_value(computer_card["hand1"])
-
-                user_total_for_winner:int = sum_cards(convert_user_for_total)
-                dealer_total_decide:int = sum_cards(convert_dealer_for_total)
-
-                winner = end_game(sum_my_card=user_total_for_winner, sum_computer_card=dealer_total_decide)
-                if winner == "You Win!!!":
-                    print("You won!!!!!")
-        
-                elif winner == "You lost =(":
-                    print("You lost")
-                
-                break
+        decesion(my_card,computer_card)
         break
 
 
