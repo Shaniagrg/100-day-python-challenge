@@ -1,12 +1,12 @@
 import random
-def decesion(my_card,computer_card):
+def decesion(my_card,computer_card) -> None:
     while True:
             continue_game = input("Type 'y' to add another card or type 'n' to pass: ")
             if continue_game == 'y':
                 append_value(adding_card=my_card,add_on_hand='y')
+                print(f"your card is {my_card}")
                 winner_decide_for_21:str = check_21(user=my_card["hand1"], dealer=computer_card["hand1"])
                 #end_game(sum_my_card=user_total, sum_computer_card=dealer_total)
-                print(my_card)
                 if winner_decide_for_21 == "You Win!!!":
                     print("You won!!!!!")
                     break
@@ -17,8 +17,8 @@ def decesion(my_card,computer_card):
                     continue
                 
             elif continue_game == 'n':
-                print(my_card)
-                print(computer_card)
+                print(f"My card is: {my_card}")
+                #print(f"Computer card is: {computer_card}")
                 convert_user_for_total:list[str] = convert_value(my_card["hand1"])
                 convert_dealer_for_total:list[str] = convert_value(computer_card["hand1"])
 
@@ -27,9 +27,11 @@ def decesion(my_card,computer_card):
 
                 winner = end_game(sum_my_card=user_total_for_winner, sum_computer_card=dealer_total_decide)
                 if winner == "You Win!!!":
+                    print(f"Computer total was [{dealer_total_decide}] and user total was [{user_total_for_winner}]")
                     print("You won!!!!!")
         
                 elif winner == "You lost =(":
+                    print(f"Computer total was [{dealer_total_decide}] and user total was [{user_total_for_winner}]")
                     print("You lost")
                 
                 break
@@ -72,7 +74,7 @@ def split(user_card_splited,computer_card_split_check_with_user) -> None:
                 print("You lost")
                 del hand_1
                 remove_hand = "delete1"
-                message == "hand_1 doesn't exist"
+                message = "hand_1 doesn't exist"
                 #continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
                 continue
             elif winner_decide_for_21 == "continue":
@@ -86,14 +88,14 @@ def split(user_card_splited,computer_card_split_check_with_user) -> None:
                     print("You won!!!!! second hand")
                     del hand_2
                     remove_hand = "delete2"
-                    message == "hand_2 doesn't exist"
+                    message = "hand_2 doesn't exist"
                     #continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
                     continue
             elif winner_decide_for_21 == "You lost":
                 print("You lost")
                 del hand_2
                 remove_hand = "delete2"
-                message == "hand_2 doesn't exist"
+                message = "hand_2 doesn't exist"
                 #continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
                 continue
             elif winner_decide_for_21 == "continue":
@@ -102,10 +104,12 @@ def split(user_card_splited,computer_card_split_check_with_user) -> None:
         elif continue_game == "yes":
             user_choice = "yes"
             append_value(adding_card = hand_1,add_on_hand = user_choice)
-            winner_decide_for_21_hand1= check_21(user=hand_2['hand1'], dealer=computer_card_split_check_with_user['hand1'])
+            winner_decide_for_21_hand1= check_21(user=hand_1['hand1'], dealer=computer_card_split_check_with_user['hand1'])
             
             append_value(adding_card = hand_2,add_on_hand = user_choice)
             winner_decide_for_21_hand2 = check_21(user=hand_2['hand2'], dealer=computer_card_split_check_with_user['hand1'])
+
+            print(f"{hand_1} , {hand_2}")
 
             if winner_decide_for_21_hand1 == "You Win!!!" or winner_decide_for_21_hand2 == "You Win!!!":
                     if winner_decide_for_21_hand1 == "You Win!!!":
@@ -203,21 +207,17 @@ def split_check(my_card:dict[str, list[int]], computer_card:list[int]) -> str:
         -  dict[str, list[int]]
     '''
     if my_card["hand1"][0] == my_card["hand1"][1]:
-        continue_game:str = input("Type 'y' to get another card, type 'n' to pass, type 's' to split: ")
+        continue_game:str = input("Type 's' to split or type 'c' to continue: ")
         if continue_game == "s":
             split_transfer: str = my_card["hand1"].pop()
             my_card["hand2"] = [split_transfer]
+            print(f"Your user card have 2 hands now {my_card}")
             return "split"
-        elif continue_game == "y":
-            append_value(my_card,add_on_hand=continue_game)
-            return "no split"
-        elif continue_game == "n":
-            sum_my_card = sum_cards(my_card["hand1"])
-            sum_computer_card = sum_cards(computer_card)
-            end_game(sum_my_card,sum_computer_card)
-            return "End Game"
+        
+        elif continue_game == "c":
+            return "continue"
 
-def sum_cards(sum:list[str]) -> int:
+def sum_cards(card_received_by_players:list[str]) -> int:
     '''
     - sum the cards 
 
@@ -229,8 +229,8 @@ def sum_cards(sum:list[str]) -> int:
     '''
     sum_cards_value:int = 0
 
-    for i in range(0,len(sum),1):
-        sum_cards_value = sum_cards_value + int(sum[i])
+    for i in range(0,len(card_received_by_players),1):
+        sum_cards_value = sum_cards_value + int(card_received_by_players[i])
     return sum_cards_value
 
 def ace_conversion(convert:list[str]) -> str:
@@ -322,12 +322,14 @@ def check_21(user:list[str],dealer:list[str]) -> str:
     dealer_converted_int_str:list[str] = convert_value(convert=dealer)
     user_converted_int_str:list[str] = convert_value(convert=user)
 
-    user_total:int = sum_cards(sum= user_converted_int_str)
-    dealer_total:int = sum_cards(sum=dealer_converted_int_str)
+    user_total:int = sum_cards(card_received_by_players= user_converted_int_str)
+    dealer_total:int = sum_cards(card_received_by_players=dealer_converted_int_str)
 
     if user_total == 21 or dealer_total > 21: 
+        print(f"your card is total is [{user_total}] and computer card is [{dealer_total}]")
         return "You Win!!!"
     elif dealer_total == 21 or user_total > 21:
+        print(f"your card is total is [{user_total}] and computer card is [{dealer_total}]")
         return "You lost"
     else:
         return "continue"
@@ -392,15 +394,14 @@ def append_value(adding_card:dict[str, list[str]], add_on_hand:str) -> bool:
         return True
     
     elif add_on_hand == "yes":
-        append_random_value:str = get_random_value()
-        adding_card["hand1"].append(append_random_value)
-        append_random_value:str = get_random_value()
-        adding_card["hand2"].append(append_random_value)
-        '''
-        for key,value in adding_card.items():
-            adding_card[key].append(append_random_value)
-            #convert_value(adding_card[key])
-        '''
+        for key in adding_card:
+            if key == "hand1":
+                append_random_value:str = get_random_value()
+                adding_card["hand1"].append(append_random_value)
+            elif key == "hand2":
+                append_random_value:str = get_random_value()
+                adding_card["hand2"].append(append_random_value)
+    
         return True
         
 def play() -> None:
@@ -448,7 +449,11 @@ def play() -> None:
         if option_to_split == "split":
             split(user_card_splited=my_card,computer_card_split_check_with_user=computer_card)
             break
-        
+
+        decesion(my_card,computer_card)
+        break
+            
+        '''
         elif option_to_split == "no split":
             continue_game_ask = input("Type 'y' to add another card or type 'n' to pass") 
             if continue_game_ask == 'y':
@@ -457,12 +462,8 @@ def play() -> None:
             else:
                 decesion(my_card,computer_card)
             break
+        '''
         
-        decesion(my_card,computer_card)
-        break
-
-
-
         
 def main() -> None:
     '''
