@@ -83,21 +83,28 @@ def split(user_card_splited,computer_card_split_check_with_user) -> None:
         if len(user_card_splited) == 0:  #map is empty then game over
             print("Game over")
             return 
-        continue_game:str = input("Type 'yes1' to get another card for first hand, 'yes2' to get another card for second hand, 'yes' to get another card for both hand, type 'n' to pass: ")
+        continue_game:str = ""
         received_user_card:str = ""
+        if 'hand1' in user_card_splited and 'hand2' in user_card_splited:
+            continue_game = input("Type 'yes1' to get another card for first hand, 'yes2' to get another card for second hand, 'yes' to get another card for both hand, type 'n' to pass: ")
+        elif 'hand1' not in user_card_splited:
+            continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
+        elif 'hand2' not in user_card_splited:
+            continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
+
+
         if continue_game == "yes1" and 'hand1' in user_card_splited:
             user_choice = "yes1"
             append_value(adding_card = user_card_splited,add_on_hand = user_choice)
             user_hand:str = 'hand1'
+            print(f"My card: {user_hand}: {user_card_splited['hand1']}")
             received_user_card = condition_after_split(user_card_splited,computer_card_split_check_with_user,user_hand,user_choice)
-            #print(f"My card: {user_card_splited}")
         elif continue_game == "yes2" and 'hand2' in user_card_splited:
             user_choice = "yes2"
             append_value(adding_card = user_card_splited,add_on_hand = user_choice)
             user_hand:str = 'hand2'
+            print(f"My card: {user_hand}: {user_card_splited['hand2']}")
             received_user_card = condition_after_split(user_card_splited,computer_card_split_check_with_user,user_hand,user_choice)
-            #print(f"My card: {user_card_splited}")
-        #remove_hand:str = ""
         elif continue_game == "yes":
             if 'hand1' in user_card_splited:
                 user_choice = "yes1"
@@ -109,17 +116,7 @@ def split(user_card_splited,computer_card_split_check_with_user) -> None:
                 append_value(adding_card = user_card_splited,add_on_hand = user_choice)
                 user_hand:str = 'hand2'
                 received_user_card = condition_after_split(user_card_splited,computer_card_split_check_with_user,user_hand,user_choice)
-            #print(f"My card: {user_card_splited}")
-        for key in user_card_splited:
-            if received_user_card == "hand1" and key in user_card_splited:
-                continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
-            elif received_user_card == "hand2" and key in user_card_splited:
-                continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
-            elif key not in user_card_splited:
-                print ("End Game")
-                break
-            elif received_user_card == "continue":
-                continue
+            print(f"My card: {user_card_splited}")
         if continue_game == "n":
             print(f"My card: {user_card_splited}")
             user_choice = "n"
@@ -134,7 +131,7 @@ def split(user_card_splited,computer_card_split_check_with_user) -> None:
                 received_user_card = condition_after_split(user_card_splited,computer_card_split_check_with_user,user_hand,user_choice)
                 print(received_user_card)
             print("Game Over")
-            break
+            return
 
 def end_game(sum_my_card:int,sum_computer_card:int) -> str:
 
