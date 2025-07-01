@@ -94,9 +94,9 @@ def split(user_card_splited,computer_card_split_check_with_user) -> None:
         received_user_card:str = ""
         if 'hand1' in user_card_splited and 'hand2' in user_card_splited:
             continue_game = input("Type 'yes1' to get another card for first hand, 'yes2' to get another card for second hand, 'yes' to get another card for both hand, type 'n' to pass: ")
-        elif '''received_user_card == "hand1" or''' 'hand1' not in user_card_splited:
+        elif  'hand1' not in user_card_splited:
             continue_game = input("Type 'yes2' to get another card for second hand or type 'n' to pass: ")
-        elif '''received_user_card == "hand2" or ''' 'hand2' not in user_card_splited:
+        elif 'hand2' not in user_card_splited:
             continue_game = input("Type 'yes1' to get another card for first hand or type 'n' to pass: ")
         '''
             elif received_user_card == "continue":
