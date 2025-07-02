@@ -1,4 +1,21 @@
 import random 
+def user_guessing(guess_number: int):
+
+    tries:int = 5 
+    while True:
+        user_guess:int = int(input("Take a guess: "))
+        if user_guess == guess_number:
+            print(f"Correct! The answer was {guess_number} . Thanks for completing that!")
+            return "winner"
+        else:
+            tries = tries - 1
+            print(f"You have {tries} guesses left for the number that I'm thinking of.")
+            if tries == 0:
+                print(f"Game over. The word was '{guess_number}.'")
+                return "loser"
+            else:
+                continue
+
 def get_random_value() -> int:
     number_range:list[int] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -16,7 +33,6 @@ def get_random_value() -> int:
      
 def play() -> None:
     
-    tries:int = 5 
     
     while True:
         guess_number: int = get_random_value()
@@ -25,13 +41,12 @@ def play() -> None:
 
         print("I'm thinking of a number between 1 to 100, try to guess it.")
         game_level:str = input("Choose a difficulty. Type 'easy' or 'hard': ")
-
-        print("You have 5 guesses left for the number that I'm thinking of.")
-        user_guess:str = input("Tale you guess: ")
-        print("too high or too low")
-        
-        print("You have 4 guesses left for the number that I'm thinking of.")
-        print("Correct! The answer was 45. Thanks for completing that!")
+       
+        after_guessing:str = user_guessing(guess_number)
+        print(after_guessing)
+             
+        #print("too high or too low")
+    
         continue_game:str = input("Do you want to play again? Type 'y' if yes and 'n' to quit:  ")
         if continue_game == 'y':
             continue
