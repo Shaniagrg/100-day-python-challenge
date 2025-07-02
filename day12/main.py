@@ -15,24 +15,29 @@ def get_random_value() -> int:
     return random_choose
      
 def play() -> None:
-
-    guess_number: int = get_random_value()
-    tries:int = 5 
-    print (guess_number)
-
-    print("Welcome to Guess The number")
-
-    print("I'm thinking of a number between 1 to 100, try to guess it.")
-    game_level:str = input("Choose a difficulty. Type 'easy' or 'hard': ")
-
-    print("You have 5 guesses left for the number that I'm thinking of.")
-    user_guess:str = input("Tale you guess: ")
-    print("too high or too low")
     
-    print("You have 4 guesses left for the number that I'm thinking of.")
-    print("Correct! The answer was 45. Thanks for completing that!")
-    continue_game:str = input("Do you want to play again? Type 'y' if yes and 'n' to quit:  ")
-    print("goodbye")
+    tries:int = 5 
+    
+    while True:
+        guess_number: int = get_random_value()
+
+        print("Welcome to Guess The number")
+
+        print("I'm thinking of a number between 1 to 100, try to guess it.")
+        game_level:str = input("Choose a difficulty. Type 'easy' or 'hard': ")
+
+        print("You have 5 guesses left for the number that I'm thinking of.")
+        user_guess:str = input("Tale you guess: ")
+        print("too high or too low")
+        
+        print("You have 4 guesses left for the number that I'm thinking of.")
+        print("Correct! The answer was 45. Thanks for completing that!")
+        continue_game:str = input("Do you want to play again? Type 'y' if yes and 'n' to quit:  ")
+        if continue_game == 'y':
+            continue
+        if continue_game == 'n':
+            print("goodbye")
+            return
 
 
 def main() -> None:
