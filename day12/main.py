@@ -3,6 +3,7 @@ def user_guessing(guess_number: int) -> None:
 
     '''
     user get 5 tries 
+    append th gussed letter to avoid repeatition 
     
     parameter:
         - guess_number: int
@@ -11,19 +12,26 @@ def user_guessing(guess_number: int) -> None:
         - None
     '''
     tries:int = 5 
+    guessed_number: list[int] = []
+
     while True:
         user_guess:int = int(input("Take a guess: "))
-        if user_guess == guess_number:
-            print(f"Correct! The answer was {guess_number} . Thanks for completing that!")
-            return 
-        else:
-            tries = tries - 1
-            print(f"You have {tries} guesses left for the number that I'm thinking of.")
-            if tries == 0:
-                print(f"Game over. The word was '{guess_number}.'")
+        if user_guess in guessed_number:
+            print(f"Already used number. Try another.")
+            continue
+        elif user_guess not in guessed_number:
+            if user_guess == guess_number:
+                print(f"Correct! The answer was {guess_number} . Thanks for completing that!")
                 return 
             else:
-                continue
+                tries = tries - 1
+                print(f"You have {tries} guesses left for the number that I'm thinking of.")
+                if tries == 0:
+                    print(f"Game over. The word was '{guess_number}.'")
+                    return 
+                else:
+                    guessed_number.append(user_guess)
+                    
 
 def get_random_value() -> int:
     '''
