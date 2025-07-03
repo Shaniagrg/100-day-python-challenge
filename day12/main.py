@@ -22,16 +22,16 @@ def user_guessing(guess_number: int) -> None:
         elif user_guess not in guessed_number:
             if user_guess == guess_number:
                 print(f"Correct! The answer was {guess_number} . Thanks for completing that!")
-                return 
+                break 
             else:
                 tries = tries - 1
                 print(f"You have {tries} guesses left for the number that I'm thinking of.")
                 if tries == 0:
                     print(f"Game over. The word was '{guess_number}.'")
-                    return 
+                    break 
                 else:
                     guessed_number.append(user_guess)
-                    
+    return            
 
 def get_random_value() -> int:
     '''
