@@ -1,6 +1,6 @@
 import random 
 
-def pointer_for_guess(user_number_guess:int ,answer:int, p1:int, p2:int) -> list[int]:
+def pointer_for_guess(user_number_guess:int ,answer:int, pointers_check=list[int]) -> None:
     '''
     decrement the value if the user guess is too high 
     increment the value if the user guess is too low
@@ -14,57 +14,17 @@ def pointer_for_guess(user_number_guess:int ,answer:int, p1:int, p2:int) -> list
     return:
         - list[int]
     '''
+    #guess_range:list[int] = [p1,p2]
     if user_number_guess > answer:
-        p2 = user_number_guess - 1
-        print(f"Too high. Your range is {p1} to {p2}")
+        pointers_check[1] = user_number_guess - 1
+        print(f"Too high. Your range is {pointers_check[0]} to {pointers_check[1]}")
     elif user_number_guess < answer:
-        p1 = user_number_guess + 1
-        print(f"Too low. Your range is {p1} to {p2}")
-    guess_range:list[int] = [p1,p2]
-    return guess_range
-
-def user_guessing_easy(computer_number: int) -> None:
-
-    '''
-    user get 5 tries 
-    append th gussed letter to avoid repeatition 
-    
-    parameter:
-        - guess_number: int
-
-    return:
-        - None
-    '''
-    tries:int = 5 
-    guessed_number: list[int] = []
-    pointer_beginning:int = 1
-    pointer_end:int = 21
-
-    while True:
-        user_guess:int = int(input("Take a guess: "))
-        if user_guess in guessed_number:
-            print(f"Already used number. Try another.")
-            continue
-        elif user_guess not in guessed_number:
-            if user_guess == computer_number:
-                print(f"Correct! The answer was {computer_number} . Thanks for completing that!")
-                break 
-            else:
-                tries = tries - 1
-                print(f"You have {tries} guesses left for the number that I'm thinking of.")
-                user_guess_range:int = pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, p1=pointer_beginning, p2=pointer_end)
-                pointer_beginning = user_guess_range[0]
-                pointer_end = user_guess_range[1]
-                
-                if tries == 0:
-                    print(f"Game over. The word was '{computer_number}.'")
-                    break 
-                else:
-                    guessed_number.append(user_guess)
-    return            
+        pointers_check[0] = user_number_guess + 1
+        print(f"Too low. Your range is {pointers_check[0]} to {pointers_check[1]}")
+    return 
 
 
-def user_guessing_hard(computer_number: int) -> None:
+def user_guessing(computer_number: int,pointers:list[int]) -> None:
 
     '''
     user get 5 tries 
@@ -78,8 +38,6 @@ def user_guessing_hard(computer_number: int) -> None:
     '''
     tries:int = 5 
     guessed_number: list[int] = []
-    pointer_beginning:int = 1
-    pointer_end:int = 100
 
     while True:
         user_guess:int = int(input("Take a guess: "))
@@ -93,18 +51,20 @@ def user_guessing_hard(computer_number: int) -> None:
             else:
                 tries = tries - 1
                 print(f"You have {tries} guesses left for the number that I'm thinking of.")
-                user_guess_range:int = pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, p1=pointer_beginning, p2=pointer_end)
-                pointer_beginning = user_guess_range[0]
-                pointer_end = user_guess_range[1]
+                pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, pointers_check = pointers)
+                #user_guess_range:int = pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, pointers_check = pointers)
+                #for i in range(0,len(user_guess_range),1):
+                   # pointers[i] = user_guess_range[i]
                 
                 if tries == 0:
-                    print(f"Game over. The word was '{computer_number}.'")
+                    print(f"Game over. The answer was '{computer_number}.'")
                     break 
                 else:
                     guessed_number.append(user_guess)
+                    continue
     return            
 
-def get_random_value() -> int:
+def get_random_value(level) -> int:
     '''
     get random value for random randrange
 
@@ -114,27 +74,35 @@ def get_random_value() -> int:
     return:
         - str
     '''
-
-    random_choose:int = random.randrange(1, 101)  #will give me ramdom number from 1 to 100
+    random_choose:int = 0
+    if level == 'easy':
+        random_choose = random.randrange(1, 21)  #will give me ramdom number from 1 to 21
+    elif level == 'hard':
+        random_choose = random.randrange(1, 101)  #will give me ramdom number from 1 to 100
     return random_choose
      
 def play() -> None:
     
     
     while True:
-        guess_number: int = get_random_value()
+        
+        guess_number: int = 0
 
         print("Welcome to Guess The number")
 
-        print("I'm thinking of a number between 1 to 100, try to guess it.")
         while True:
-
             game_level:str = input("Choose a difficulty. Type 'easy' or 'hard': ")
             if game_level == 'hard':
-                user_guessing_hard(guess_number)
+                print("I'm thinking of a number between 1 to 100, try to guess it.")
+                pointers_hard:list[int] = [1,100]
+                guess_number = get_random_value(level=game_level)
+                user_guessing(guess_number,pointers = pointers_hard)
                 break
             elif game_level == 'easy':
-                user_guessing_easy(guess_number)
+                print("I'm thinking of a number between 1 to 20, try to guess it.")
+                pointers_easy:list[int] = [1,21]
+                guess_number = get_random_value(level=game_level)
+                user_guessing(guess_number, pointers = pointers_easy)
                 break
             else:
                 print("Type the correct word")
