@@ -16,22 +16,11 @@ def pointer_for_guess(user_number_guess:int ,answer:int, pointers_check=list[int
     #guess_range:list[int] = [p1,p2]
     if user_number_guess > answer:
         pointers_check[1] = user_number_guess - 1
-        if answer in pointers_check:
-            for i in range(0,len(pointers_check),1):
-                if answer == pointers_check[i]:
-                    print(f"You're almost there. The answer is either {pointers_check[0]} or {pointers_check[1]}")
-        else:
-            print(f"Too high. Your range is {pointers_check[0]} to {pointers_check[1]}")
+        print(f"Too high. Your range is {pointers_check[0]} to {pointers_check[1]}")
     elif user_number_guess < answer:
         pointers_check[0] = user_number_guess + 1
-        if answer in pointers_check:
-            for i in range(0,len(pointers_check),1):
-                if answer == pointers_check[i]:
-                    print(f"You're almost there. The answer is either {pointers_check[0]} or {pointers_check[1]}")
-        else:
-            print(f"Too low. Your range is {pointers_check[0]} to {pointers_check[1]}")
+        print(f"Too low. Your range is {pointers_check[0]} to {pointers_check[1]}")
     return 
-
 
 def user_guessing(computer_number: int,pointers:list[int]) -> None:
 
@@ -59,17 +48,17 @@ def user_guessing(computer_number: int,pointers:list[int]) -> None:
             continue
         elif user_guess not in guessed_number:
             if user_guess == computer_number:
-                print(f"Correct! The answer was {computer_number} . Thanks for completing that!")
+                print(f"Correct! The answer was {computer_number}. Thanks for completing that!")
                 break 
             else:
                 tries = tries - 1
-                print(f"You have {tries} guesses left for the number that I'm thinking of.")
-                pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, pointers_check = pointers)
                 
                 if tries == 0:
                     print(f"Game over. The answer was '{computer_number}.'")
                     break 
                 else:
+                    pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, pointers_check = pointers)
+                    print(f"You have {tries} guesses left for the number that I'm thinking of.")
                     guessed_number.append(user_guess)
                     continue
     return            
@@ -125,11 +114,9 @@ def play() -> None:
             print("goodbye")
             return
 
-
 def main() -> None:
     play()
     
-
 if __name__ == '__main__': 
         main()
     
