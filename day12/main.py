@@ -16,10 +16,20 @@ def pointer_for_guess(user_number_guess:int ,answer:int, pointers_check=list[int
     #guess_range:list[int] = [p1,p2]
     if user_number_guess > answer:
         pointers_check[1] = user_number_guess - 1
-        print(f"Too high. Your range is {pointers_check[0]} to {pointers_check[1]}")
+        if answer in pointers_check:
+            for i in range(0,len(pointers_check),1):
+                if answer == pointers_check[i]:
+                    print(f"You're almost there. The answer is either {pointers_check[0]} or {pointers_check[1]}")
+        else:
+            print(f"Too high. Your range is {pointers_check[0]} to {pointers_check[1]}")
     elif user_number_guess < answer:
         pointers_check[0] = user_number_guess + 1
-        print(f"Too low. Your range is {pointers_check[0]} to {pointers_check[1]}")
+        if answer in pointers_check:
+            for i in range(0,len(pointers_check),1):
+                if answer == pointers_check[i]:
+                    print(f"You're almost there. The answer is either {pointers_check[0]} or {pointers_check[1]}")
+        else:
+            print(f"Too low. Your range is {pointers_check[0]} to {pointers_check[1]}")
     return 
 
 
@@ -99,7 +109,7 @@ def play() -> None:
                 break
             elif game_level == 'easy':
                 print("I'm thinking of a number between 1 to 20, try to guess it.")
-                pointers_easy:list[int] = [1,21]
+                pointers_easy:list[int] = [1,20]
                 guess_number = get_random_value(level=game_level)
                 user_guessing(guess_number, pointers = pointers_easy)
                 break
