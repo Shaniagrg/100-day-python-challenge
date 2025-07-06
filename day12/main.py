@@ -8,11 +8,10 @@ def pointer_for_guess(user_number_guess:int ,answer:int, pointers_check=list[int
     paramenter:
         - user_number_guess:int 
         - answer:int
-        - p1:int
-        - p2:int
+        - pointers_check=list[int]
 
     return:
-        - list[int]
+        - None
     '''
     #guess_range:list[int] = [p1,p2]
     if user_number_guess > answer:
@@ -32,6 +31,7 @@ def user_guessing(computer_number: int,pointers:list[int]) -> None:
     
     parameter:
         - guess_number: int
+        - pointers:list[int]
 
     return:
         - None
@@ -64,15 +64,14 @@ def user_guessing(computer_number: int,pointers:list[int]) -> None:
                     continue
     return            
 
-def get_random_value(level) -> int:
+def get_random_value(level:str) -> int:
     '''
     get random value for random randrange
 
     parameter:
-        - None
-    
+        - level:str
     return:
-        - str
+        - int
     '''
     random_choose:int = 0
     if level == 'easy':
@@ -124,7 +123,7 @@ def main() -> None:
 if __name__ == '__main__': 
         main()
     
-#Computer has a number in its head form range 1 - 100
+#Computer has a number in its head from range 1 - 100
 #player guess the number
 #player can choose the level hard/easy/intermediate
 #the guessed number could be high or low
