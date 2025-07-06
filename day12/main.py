@@ -41,8 +41,11 @@ def user_guessing(computer_number: int,pointers:list[int]) -> None:
 
     while True:
         user_guess:int = int(input("Take a guess: "))
+        
         if user_guess in guessed_number:
-            print(f"Already used number. Try another.")
+            for i in range(0,len(guessed_number),1):
+                if user_guess == guessed_number[i]:
+                    print(f"Already used number. Try another.")
             continue
         elif user_guess not in guessed_number:
             if user_guess == computer_number:
@@ -52,9 +55,6 @@ def user_guessing(computer_number: int,pointers:list[int]) -> None:
                 tries = tries - 1
                 print(f"You have {tries} guesses left for the number that I'm thinking of.")
                 pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, pointers_check = pointers)
-                #user_guess_range:int = pointer_for_guess(user_number_guess = user_guess  , answer=computer_number, pointers_check = pointers)
-                #for i in range(0,len(user_guess_range),1):
-                   # pointers[i] = user_guess_range[i]
                 
                 if tries == 0:
                     print(f"Game over. The answer was '{computer_number}.'")
