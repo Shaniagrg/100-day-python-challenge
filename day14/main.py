@@ -1,11 +1,16 @@
 import random
 
-def compare(a:list[str],b:list[str]) -> list[int]:
+def compare(a:list[str],b:list[str]) -> str:
     player_A:int = int(a[0])
     player_B:int = int(b[0])
-    players_value:list[int] = [player_A,player_B]
-    return players_value
 
+    if player_A > player_B:
+        # A is the winner
+        return "a"
+    elif player_A < player_B:
+        #B is the winner
+        return "b"
+    
 def people() -> list[str]:
     
     celebrities:dict[str,list[str]] ={"100": [ "Neymar, a Footballer, from Brasil"], 
@@ -22,40 +27,56 @@ def people() -> list[str]:
         return random_key_value
 
 def play() -> None:
+    correct:int = 0 
     while True:
-        #correct add\n
-        random_people_A:list[str] = people()
+
+        while True:
+            random_people_A:list[str] = people()
+            random_people_B:list[str] = people()
+            if random_people_A == random_people_B:
+                continue
+            else:
+                break
+
         compare_a = print(f"Compare A: {random_people_A[1]} ")
-
-        random_people_B:list[str] = people()
         compare_b = print(f"Compare B: {random_people_B[1]}")
+        compare_number: str = compare(a = random_people_A, b =random_people_B)
         user_input:str = input("Who do you think has more followers? Type'a', or 'b': ")
-        compare_number: list[int] = compare(a = random_people_A, b =random_people_B)
-        #print(compare_number)
+        if compare_number == "a" and user_input == "a":
+            correct = correct + 1
+            print(f"correct your current score is {correct} ")
 
-        #incorrect you score is 
-        continue_game:str = input("Do you want to play again? Type 'y' or 'n': ")
-        if continue_game == 'y':
-            continue
-        elif continue_game == 'n':
-            print("Thanks for playing")
-            break
+        elif compare_number == "b" and user_input == "b":
+            correct = correct + 1
+            print(f"correct your current score is {correct}")
+
+
         else:
-            print("type the correct word")
-            continue
+            if correct == 0 or correct == 1:
+                if correct == 1:
+                    correct = correct - 1
+                    print(f"incorrect your current score is {correct}")
+                else:
+                    print(f"incorrect your current score is {correct}")
+
+                continue_game:str = input("Do you want to play again? Type 'y' or 'n': ")
+                if continue_game == 'y':
+                    continue
+                elif continue_game == 'n':
+                    print("Thanks for playing")
+                    break
+                else:
+                    print("type the correct word")
+                    continue
+            else:
+                correct = correct - 1
+                print(f"incorrect your current score is {correct}") 
+
+
+        
 
 def main() -> None:
-    '''
-    Create a map for all the cards 
-    Also create pairs for split
-
-    parameters:
-        - None
-    
-    return:
-        None
-    '''
-    print("Lets play blackjack")
+    print("Lets play")
     
     play()
     
