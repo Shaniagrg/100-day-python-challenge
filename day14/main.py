@@ -14,24 +14,46 @@ def people() -> list[str]:
         random_key_value:list[str] = [random_key,random_value]
         return random_key_value
 
-while True:
-    #correct add\n
-    random_people_A:list[str] = people()
-    compare_a = print(f"Compare A: {random_people_A[1]} ")
+def play() -> None:
+    while True:
+        #correct add\n
+        random_people_A:list[str] = people()
+        compare_a = print(f"Compare A: {random_people_A[1]} ")
 
-    random_people_B:list[str] = people()
-    compare_b = print(f"Compare B: {random_people_B[1]}")
-    user_input:str = input("Who do you think has more followers? Type'a', or 'b': ")
+        random_people_B:list[str] = people()
+        compare_b = print(f"Compare B: {random_people_B[1]}")
+        user_input:str = input("Who do you think has more followers? Type'a', or 'b': ")
+        
 
+        #incorrect you score is 
+        continue_game:str = input("Do you want to play again? Type 'y' or 'n': ")
+        if continue_game == 'y':
+            continue
+        elif continue_game == 'n':
+            print("Thanks for playing")
+            break
+        else:
+            print("type the correct word")
+            continue
 
-    #incorrect you score is 
-    continue_game:str = input("Do you want to play again? Type 'y' or 'n': ")
-    if continue_game == 'y':
-        continue
-    elif continue_game == 'n':
-        print("Thanks for playing")
-        break
-    else:
-        print("type the correct word")
-        continue
+def main() -> None:
+    '''
+    Create a map for all the cards 
+    Also create pairs for split
+
+    parameters:
+        - None
+    
+    return:
+        None
+    '''
+    print("Lets play blackjack")
+    
+    play()
+    
+
+if __name__ == '__main__': 
+        main()
+    
+
 
