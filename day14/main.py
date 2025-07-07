@@ -1,4 +1,11 @@
 import random
+
+def compare(a:list[str],b:list[str]) -> list[int]:
+    player_A:int = int(a[0])
+    player_B:int = int(b[0])
+    players_value:list[int] = [player_A,player_B]
+    return players_value
+
 def people() -> list[str]:
     
     celebrities:dict[str,list[str]] ={"100": [ "Neymar, a Footballer, from Brasil"], 
@@ -23,7 +30,8 @@ def play() -> None:
         random_people_B:list[str] = people()
         compare_b = print(f"Compare B: {random_people_B[1]}")
         user_input:str = input("Who do you think has more followers? Type'a', or 'b': ")
-        
+        compare_number: list[int] = compare(a = random_people_A, b =random_people_B)
+        #print(compare_number)
 
         #incorrect you score is 
         continue_game:str = input("Do you want to play again? Type 'y' or 'n': ")
