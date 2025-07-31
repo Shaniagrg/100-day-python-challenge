@@ -45,7 +45,7 @@ while True:
                 print(f"You have ${user_money}")
                 user_money = Machine.coin(user_money)
                 continue
-        print(f"Here's your change {change}.")
+        print(f"Here's your change {round(change,2)}.")
         print(f"Here is your {coffee}. Enjoy!")
         continue
     elif coffee == "off":
