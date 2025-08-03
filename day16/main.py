@@ -2,9 +2,43 @@ class Machine:
     brand:str = "coffee machine"
     espresso:float = 3.25
     latte:float = 4.50
-    cappaucino:float = 5.20
+    cappucino:float = 5.20
+    
     @classmethod
-    def coin(cls, money:float = 0.0)->float:
+    def start_machine(cls,customer:str) -> None:
+        print(f"Hello {customer}!")
+        while True:
+            coffee:str = input("Choose between espresso, latte or cappucino: ")
+            if coffee == "espresso" or coffee == "latte" or coffee == "cappucino":
+                print("Please insert coins.")
+                user_money:float = cls.insert_coin()
+                change:float = 0.0
+                while True:
+                    if coffee == "espresso" and user_money > Machine.espresso:
+                        change = user_money - cls.espresso
+                        break
+                    elif coffee == "latte" and user_money > Machine.latte:
+                        change = user_money - cls.latte
+                        break
+                    elif coffee == "cappucino" and user_money > Machine.cappucino:
+                        change = user_money - cls.cappucino
+                        break
+                    else:
+                        print("Add more money!")
+                        print(f"You have ${user_money}")
+                        user_money = cls.insert_coin(user_money)
+                        continue
+                print(f"Here's your change ${round(change,2)}.")
+                print(f"Here is your {coffee}. Enjoy!")
+                continue
+            elif coffee == "off":
+                print("Have a good one!")
+                break
+            else:
+                print("Type the correct word")
+                continue
+    @classmethod
+    def insert_coin(cls, money:float = 0.0)->float:
         quarter:int = int(input("How many quarters?: "))
         dime:int = int(input("How many dimes?: "))
         nickle:int = int(input("How many nickles?: "))
@@ -20,37 +54,7 @@ class Machine:
         convert_penny:float = penny * 0.01
         total_convert:float = convert_quarter + convert_nickle + convert_dime + convert_penny + money
         return total_convert
-    
 
 
-while True:
-
-    coffee:str = input("Choose between espresso, latte or cappucino: ")
-    if coffee == "espresso" or coffee == "latte" or coffee == "cappucino":
-        print("Please insert coins.")
-        user_money:float = Machine.coin()
-        change:float = 0.0
-        while True:
-            if coffee == "espresso" and user_money > Machine.espresso:
-                change = user_money - Machine.espresso
-                break
-            elif coffee == "latte" and user_money > Machine.latte:
-                change = user_money - Machine.latte
-                break
-            elif coffee == "cappucino" and user_money > Machine.cappaucino:
-                change = user_money - Machine.cappaucino
-                break
-            else:
-                print("Add more money!")
-                print(f"You have ${user_money}")
-                user_money = Machine.coin(user_money)
-                continue
-        print(f"Here's your change {round(change,2)}.")
-        print(f"Here is your {coffee}. Enjoy!")
-        continue
-    elif coffee == "off":
-        print("Have a good one!")
-        break
-    else:
-        print("Type the correct word")
-        continue
+sam:Machine = Machine.start_machine("sam")
+tyler:Machine = Machine.start_machine("tyler")
