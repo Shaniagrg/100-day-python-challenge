@@ -5,11 +5,13 @@ class Machine:
     cappucino:float = 5.20
     
     @classmethod
-    def start_machine(cls,customer:str) -> None:
-        print(f"Hello {customer}!")
+    def start_machine(cls) -> str:
+        #print(f"Hello {customer}!")
+        customer_got:str = ""
         while True:
             coffee:str = input("Choose between espresso, latte or cappucino: ")
             if coffee == "espresso" or coffee == "latte" or coffee == "cappucino":
+                customer_got = coffee
                 print("Please insert coins.")
                 user_money:float = cls.insert_coin()
                 change:float = 0.0
@@ -29,14 +31,15 @@ class Machine:
                         user_money = cls.insert_coin(user_money)
                         continue
                 print(f"Here's your change ${round(change,2)}.")
-                print(f"Here is your {coffee}. Enjoy!")
+                #print(f"Here is your {coffee}. Enjoy!")
                 continue
             elif coffee == "off":
-                print("Have a good one!")
+                #print("Have a good one!")
                 break
             else:
                 print("Type the correct word")
                 continue
+        return customer_got
     @classmethod
     def insert_coin(cls, money:float = 0.0)->float:
         quarter:int = int(input("How many quarters?: "))
@@ -56,5 +59,7 @@ class Machine:
         return total_convert
 
 
-sam:Machine = Machine.start_machine("sam")
-tyler:Machine = Machine.start_machine("tyler")
+
+print(f"Here is your {Machine.start_machine()} Sam. Enjoy!")
+print(f"Here is your {Machine.start_machine()} Tyler. Enjoy!")
+#tyler:Machine = Machine.start_machine("tyler")
