@@ -5,7 +5,7 @@ class Machine:
     cappucino:float = 5.20
     
     @classmethod
-    def start_machine(cls) -> str:
+    def start_machine(cls,customer_name) -> str:
         #print(f"Hello {customer}!")
         customer_got:str = ""
         while True:
@@ -31,7 +31,7 @@ class Machine:
                         user_money = cls.insert_coin(user_money)
                         continue
                 print(f"Here's your change ${round(change,2)}.")
-                #print(f"Here is your {coffee}. Enjoy!")
+                print(f"Enjoy your {customer_got} {customer_name}.")
                 continue
             elif coffee == "off":
                 #print("Have a good one!")
@@ -57,9 +57,11 @@ class Machine:
         convert_penny:float = penny * 0.01
         total_convert:float = convert_quarter + convert_nickle + convert_dime + convert_penny + money
         return total_convert
+    
+customer_records:dict[str,str] = {}
 
-
-
-print(f"Here is your {Machine.start_machine()} Sam. Enjoy!")
-print(f"Here is your {Machine.start_machine()} Tyler. Enjoy!")
-#tyler:Machine = Machine.start_machine("tyler")
+customer1:str = "Sam"
+customer1_gets:str = Machine.start_machine("Sam")
+#print(f"Here is your {customer1_gets}{customer1}. Enjoy!")
+customer_records[customer1] = customer1_gets
+print(customer_records)
