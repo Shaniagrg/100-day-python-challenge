@@ -5,12 +5,14 @@ class Machine:
     cappucino:float = 5.20
     
     @classmethod
-    def start_machine(cls,customer_name) -> str:
+    def start_machine(cls,customer_name) -> list[str]:
         #print(f"Hello {customer}!")
+        total_coffee:list[str] = []
         customer_got:str = ""
         while True:
             coffee:str = input("Choose between espresso, latte or cappucino: ")
             if coffee == "espresso" or coffee == "latte" or coffee == "cappucino":
+                total_coffee.append(coffee)
                 customer_got = coffee
                 print("Please insert coins.")
                 user_money:float = cls.insert_coin()
@@ -39,7 +41,7 @@ class Machine:
             else:
                 print("Type the correct word")
                 continue
-        return customer_got
+        return total_coffee
     @classmethod
     def insert_coin(cls, money:float = 0.0)->float:
         quarter:int = int(input("How many quarters?: "))
@@ -58,10 +60,10 @@ class Machine:
         total_convert:float = convert_quarter + convert_nickle + convert_dime + convert_penny + money
         return total_convert
     
-customer_records:dict[str,str] = {}
+customer_records:dict[str,list[str]] = {}
 
 customer1:str = "Sam"
-customer1_gets:str = Machine.start_machine("Sam")
+customer1_gets:list[str] = Machine.start_machine("Sam")
 #print(f"Here is your {customer1_gets}{customer1}. Enjoy!")
 customer_records[customer1] = customer1_gets
 print(customer_records)
