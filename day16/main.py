@@ -61,9 +61,14 @@ class Machine:
         return total_convert
     
 customer_records:dict[str,list[str]] = {}
+while True:
+    customer:str = input("Your name: ")
+    if customer == "off":
+        break
+    else:
+        customer_gets:list[str] = Machine.start_machine(customer)
+        #print(f"Here is your {customer1_gets}{customer1}. Enjoy!")
+        customer_records[customer] = customer_gets
+        continue
 
-customer1:str = "Sam"
-customer1_gets:list[str] = Machine.start_machine("Sam")
-#print(f"Here is your {customer1_gets}{customer1}. Enjoy!")
-customer_records[customer1] = customer1_gets
 print(customer_records)
