@@ -1,8 +1,33 @@
 import random
 class Quiz:
 
-    total_questions:list[list[str]] = [
-        ["A slug's blood is green.", "True"],
+    #total_questions:list[list[str]] = []
+    
+    def __init__(self,question):
+        self.total_questions = question
+        
+
+    def start_quiz(self):
+        points:int = 0
+        Q:int = 0
+        used_question:list[list[str]] = []
+        while True:
+            question:list[str] = random.choice(self.total_questions)
+            print(question[0])
+            used_question.append(question)
+            answer:str = input("True/False: ")
+            if answer == question[1]:
+                Q = Q + 1
+                points = points + 1
+                print(f"Your current score is {points}/{Q}")
+            elif Q == 12:
+                print(f"Your current score is {points}/{Q}")
+                break
+            else:
+                Q = Q + 1
+                print(f"Your current score is {points}/{Q}")
+
+question:list[list[str]] = [["A slug's blood is green.", "True"],
         ["The loudest animal is the African Elephant." , "False"],
         ["Approximately one quarter of human bones are in the feet.", "True"],
         ["The total surface area of a human lungs is the size of a football pitch." , "True"],
@@ -14,29 +39,7 @@ class Quiz:
         ["Google was originally called 'Backrub'." , "True"],
         ["Buzz Aldrin's mother's maiden name was 'Moon'." , "True"],
         ["No piece of square dry paper can be folded in half more than 7 times." , "False"],
-        ["A few ounces of chocolate can to kill a small dog.", "True"]
-    ]
-
-    points:int = 0
-    Q:int = 0
-    used_question:list[list[str]] = []
-
-    @classmethod
-    def start_quiz(cls):
-        while True:
-            question:list[str] = random.choice(cls.total_questions)
-            print(question[0])
-            cls.used_question.append(question)
-            answer:str = input("True/False: ")
-            if answer == question[1]:
-                cls.Q = cls.Q + 1
-                cls.points = cls.points + 1
-                print(f"Your current score is {cls.points}/{cls.Q}")
-            elif cls.Q == 12:
-                print(f"Your current score is {cls.points}/{cls.Q}")
-                break
-            else:
-                cls.Q = cls.Q + 1
-                print(f"Your current score is {cls.points}/{cls.Q}")
-
-Quiz.start_quiz()
+        ["A few ounces of chocolate can to kill a small dog.", "True"]]
+    
+Quiz_sam:Quiz = Quiz(question)
+Quiz_sam.start_quiz()
