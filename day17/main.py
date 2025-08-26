@@ -1,10 +1,23 @@
 import random
 class Quiz:
 
+    all_question:dict[str,str] = {}
     #total_questions:list[list[str]] = []
     
-    def __init__(self,question):
-        self.total_questions = question
+    def __init__(self):
+        self.all_question = {"A slug's blood is green.":"True",
+        "The loudest animal is the African Elephant." :"False",
+        "Approximately one quarter of human bones are in the feet." : "True",
+        "The total surface area of a human lungs is the size of a football pitch." : "True",
+        "In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home "
+                "to eat." : "True",
+        "In London, UK, if you happen to die in the House of Parliament, you are entitled to a state funeral." : "False",
+        "It is illegal to pee in the Ocean in Portugal." : "True",
+        "You can lead a cow down stairs but not up stairs." : "False",
+        "Google was originally called 'Backrub'." : "True",
+        "Buzz Aldrin's mother's maiden name was 'Moon'." : "True",
+        "No piece of square dry paper can be folded in half more than 7 times." : "False",
+        "A few ounces of chocolate can to kill a small dog.": "True"}
         
 
     def start_quiz(self):
@@ -12,8 +25,8 @@ class Quiz:
         Q:int = 0
         used_question:set[str] = set()
         while True:
-            question:list[str] = random.choice(list(self.total_questions.items()))
-            if len(used_question) == len(self.total_questions):
+            question:list[str] = random.choice(list(self.all_question.items()))
+            if len(used_question) == len(self.all_question):
                 print("Thanks for completing that")
                 print(f"Your final score is:{points}/{Q}")
                 exit_quiz:str = input("Process finish with exit code 0: ")
@@ -43,22 +56,5 @@ class Quiz:
                         continue
             
 
-                
-                
-question:dict[str,str] = {"A slug's blood is green.":"True",
-        "The loudest animal is the African Elephant." :"False",
-        "Approximately one quarter of human bones are in the feet." : "True",
-        "The total surface area of a human lungs is the size of a football pitch." : "True",
-        "In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home "
-                "to eat." : "True",
-        "In London, UK, if you happen to die in the House of Parliament, you are entitled to a state funeral." : "False",
-        "It is illegal to pee in the Ocean in Portugal." : "True",
-        "You can lead a cow down stairs but not up stairs." : "False",
-        "Google was originally called 'Backrub'." : "True",
-        "Buzz Aldrin's mother's maiden name was 'Moon'." : "True",
-        "No piece of square dry paper can be folded in half more than 7 times." : "False",
-        "A few ounces of chocolate can to kill a small dog.": "True"}
-    
-
-Quiz_sam:Quiz = Quiz(question)
+Quiz_sam:Quiz = Quiz()
 Quiz_sam.start_quiz()
