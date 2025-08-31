@@ -1,23 +1,13 @@
-from turtle import *
-'''
-pensize(4)  # Make the lines thicker than normal.
+import turtle
 
-forward(200)  # Move the turtle forward 200 steps.
-left(90)  # Turn the turtle left by 90 degrees.
-
-# Move forward and turn three more times:
-forward(200)
-left(90)
-forward(200)
-left(90)
-forward(200)
-left(90)
-
-done()  # Without this, the Turtle window may immediately close before you can see the picture.s
-'''
-pensize(4)
+import turtle
+turtle.pensize(4)
+turtle.pencolor('blue')
+turtle.fillcolor('blue')
+turtle.begin_fill() 
 
 for i in range(8):
-    forward(100)
-    left(45)  
-done()
+    turtle.forward(100)
+    turtle.left(45)
+turtle.end_fill()
+turtle.done()
