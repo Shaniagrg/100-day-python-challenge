@@ -10,8 +10,8 @@ for i in range(0,10,1):
     turtle.begin_fill() 
 
     for i in range(8):
-        turtle.forward(20)
+        turtle.forward(10)
         turtle.left(45)
     turtle.end_fill()
-    turtle.forward(70)
+    turtle.forward(40)
     turtle.done()
