@@ -1,9 +1,8 @@
 import turtle
-
-import turtle
 turtle.pensize(4)
 turtle.pencolor('blue')
 turtle.fillcolor('blue')
+turtle.speed('normal')
 turtle.begin_fill() 
 
 for i in range(8):
