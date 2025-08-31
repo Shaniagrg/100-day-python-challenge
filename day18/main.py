@@ -1,7 +1,10 @@
 import turtle
-turtle.pensize(4)
-turtle.pencolor('blue')
-turtle.fillcolor('blue')
+import random
+colors = ['red', 'orange', 'yellow', 'blue', 'green', 'purple','pink']
+
+turtle.pensize(1)
+turtle.pencolor('white')
+turtle.fillcolor(random.choice(colors))
 turtle.speed('normal')
 turtle.begin_fill() 
 
