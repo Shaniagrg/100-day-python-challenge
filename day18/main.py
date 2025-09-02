@@ -2,7 +2,7 @@ import turtle
 import random
 colors = ['red', 'orange', 'yellow', 'blue', 'green', 'purple','pink']
 
-for i in range(0,10,1):
+def octagon():
     turtle.pensize(1)
     turtle.pencolor('white')
     turtle.fillcolor(random.choice(colors))
@@ -14,4 +14,7 @@ for i in range(0,10,1):
         turtle.left(45)
     turtle.end_fill()
     turtle.forward(40)
-    turtle.done()
+
+for i in range(0,10,1):
+    octagon()
+turtle.done()
