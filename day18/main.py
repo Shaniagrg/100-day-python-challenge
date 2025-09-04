@@ -29,20 +29,15 @@ def octagon():
   t.end_fill()
   t.forward(40)
 for ind in range(4): 
-    for i in range (4):
+    for i in range (10):
       left_turn()
       octagon()
-      #left_turn
-      t.forward(30)
     up_turn()
     t.forward(30)
-    right_turn()
-    for inde in range(4):
-      #t.forward(30)
+    for inde in range(10):
+      right_turn()
       octagon()
-      t.forward(30)
     up_turn()
-    t.forward(30)
-    left_turn()
+    t.forward(80)
     
 t.done()
