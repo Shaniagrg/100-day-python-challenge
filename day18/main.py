@@ -28,16 +28,25 @@ def octagon():
     t.left(45)
   t.end_fill()
   t.forward(40)
+  
+def left_start():
+  for i in range (10):
+    left_turn()
+    octagon()
+  up_turn()
+  t.forward(30)
+  
+def right_start():
+  for inde in range(10):
+    right_turn()
+    octagon()
+  up_turn()
+  t.forward(80)
+  
 for ind in range(4): 
-    for i in range (10):
-      left_turn()
-      octagon()
-    up_turn()
-    t.forward(30)
-    for inde in range(10):
-      right_turn()
-      octagon()
-    up_turn()
-    t.forward(80)
+  if ind%2==0:
+    left_start()
+  else:
+    right_start()
     
 t.done()
