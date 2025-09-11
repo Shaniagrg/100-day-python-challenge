@@ -15,21 +15,25 @@ class Field:
             t.forward(self.f)
             t.left(self.l)
 
+class Players:
+    def player(self):
+        t.pencolor(random.choice(colors))
+        #t.penup(40)
+        for i in range(30):
+            t.forward(1 + i)
+            t.left(91)
+            
 class Start:
     Field.f1 = None
+    Players.p = None
     def __init__(self):
         self.f1 = Field()   # create a field
-
+        self.p = Players() 
+         
     def field_1(self):
         self.f1.size_field()   # draw the field
+        self.p.player() 
         
-def players():
-    t.pencolor(random.choice(colors))
-    for i in range(50):
-        t.forward(10 + i)
-        t.left(91)
-
-#players()
 game = Start()
 game.field_1()   
     
