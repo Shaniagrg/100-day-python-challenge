@@ -40,7 +40,11 @@ class Start:
          
     def field_1(self):
         self.f1.size_field()   # draw the field
-        self.p.player() 
+        for i in range (5):
+            t.setheading(90)
+            t.forward(40)
+            self.p.player() 
+            
         
 game = Start()
 game.field_1()   
