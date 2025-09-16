@@ -4,6 +4,7 @@ t = turtle.Turtle()
 t.speed(0) # 1:slowest, 3:slow, 5:normal, 10:fast, 0:fastest
 y_axis = [215, 172, 129, 86, 43, 0]
 players_color = []
+speed = [1,3,5,10,0]
 class Arena:
     f = 0
     l = 0
@@ -18,14 +19,14 @@ class Arena:
 
 class Players:
     radius = 0
-    speed = 0
+    #speed = 0
     colors = []
-    def __init__(self,r=12, s=0):
+    def __init__(self,r=12):
         self.radius = r
-        self.speed = s
-        self.colors = ['red', 'orange', 'yellow', 'blue', 'green', 'purple','pink']
+        #self.speed = s
+        self.colors = ['red', 'orange', 'blue', 'green', 'purple']
     def player(self,x,y):
-        t.speed(self.speed)
+        #t.speed(self.speed)
         t.penup()
         t.goto(x,y)
         t.pendown()
@@ -39,6 +40,7 @@ class Players:
         t.begin_fill() 
         t.circle(self.radius)
         t.end_fill() 
+    
             
 class Start:
     def game_play(self):
