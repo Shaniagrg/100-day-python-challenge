@@ -35,21 +35,17 @@ class Players:
         t.end_fill() 
             
 class Start:
-    Arena.f1 = None
-    Players.p = None
-    def __init__(self):
-        self.f1 = Arena()   # create a field
-        self.p = Players() 
-         
-    def field_1(self):
-        self.f1.size_field()   # draw the field
+    def game_play(self):
+        f1 = Arena()
+        f1.size_field()
+        p = Players()
         for i in range (5):
             t.setheading(90)
             t.forward(40)
-            self.p.player(x=40,y=y_axis[i])
+            p.player(x=40,y=y_axis[i])
             
         
 game = Start()
-game.field_1()   
+game.game_play()   
     
 t.done()
