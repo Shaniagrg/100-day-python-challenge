@@ -3,6 +3,7 @@ import random
 t = turtle.Turtle()
 t.speed(0) # 1:slowest, 3:slow, 5:normal, 10:fast, 0:fastest
 y_axis = [215, 172, 129, 86, 43, 0]
+players_color = []
 class Arena:
     f = 0
     l = 0
@@ -29,7 +30,12 @@ class Players:
         t.goto(x,y)
         t.pendown()
         t.pencolor('white')
-        t.fillcolor(random.choice(self.colors))
+        chosen_color = random.choice(self.colors)
+        while chosen_color in players_color:
+            chosen_color = random.choice(self.colors)
+        players_color.append(chosen_color)
+        t.fillcolor(chosen_color)
+        
         t.begin_fill() 
         t.circle(self.radius)
         t.end_fill() 
