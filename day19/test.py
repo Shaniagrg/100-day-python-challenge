@@ -47,16 +47,33 @@ class Starts:
     def game_play(self):
         f1 = Arena()
         f1.size_field()
-        p = Players()
-        for i in range(5):
-            t.setheading(90)
-            t.forward(40)
-            p.player(x=40, y=y_axis[i])
         
         # Call player_race to start the race if implemented
         # p.player_race()
 
 game = Starts()
-game.game_play()   
+game.game_play()
+def gap():
+    t.setheading(90)
+    t.forward(40)
+tom = Players()   
+gap()
+tom.player(x=40, y=y_axis[0])
+
+harry = Players()   
+gap()
+harry.player(x=40, y=y_axis[1])
+
+tim = Players()   
+gap()
+tim.player(x=40, y=y_axis[2])
+
+rita = Players()   
+gap()
+rita.player(x=40, y=y_axis[3])
+
+wendy = Players()   
+gap()
+wendy.player(x=40, y=y_axis[4])
 
 t.done()
