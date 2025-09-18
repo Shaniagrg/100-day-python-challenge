@@ -8,11 +8,12 @@ s.bgcolor("lightgreen")
 #create pen
 t = turtle.Turtle()
 t.speed(0)
-
+t.hideturtle() #hide the cursor
 class Arena:
     def __init__(self):
         self.t = turtle.Turtle()
         self.t.speed(0)
+        self.t.hideturtle()
 
     def start_line(self):
         self.t.up()  # Lift the pen
@@ -40,7 +41,7 @@ class Arena:
             self.t.color("white")
             self.t.down()
             self.t.forward(340)
-            yposition -= 25  # Use shorthand for decrementing
+            yposition = yposition - 25  # Use shorthand for decrementing
 
     def draw_track(self):
         self.start_line()  # Corrected method names
