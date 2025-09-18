@@ -101,14 +101,27 @@ class Start():
         self.wendy.turtle_position()
         
     def assign_speed(self):
-        while self.tom.t1.xcor() < line or self.harry.t1.xcor() < line or self.tim.t1.xcor() < line or self.rita.t1.xcor() < line or self.wendy.t1.xcor() < line: 
-            self.tom.t1.forward.speed()
-            self.harry.t1.forward.speed()
-            self.tim.t1.forward.speed()
-            self.rita.t1.forward.speed()
-            self.wendy.t1.forward.speed()
-        final_list = [tom.xcor(), harry.xcor(), tim.xcor(), rita.xcor(), wendy.xcor()]
-        final_dict = {tom.xcor():used_color[0], harry.xcor():used_color[1], tim.xcor():used_color[2], rita.xcor():used_color[3], wendy.xcor():used_color[4]}
+        # Assign speeds to each player
+        tom_speed = self.tom.speed()
+        harry_speed = self.harry.speed()
+        tim_speed = self.tim.speed()
+        rita_speed = self.rita.speed()
+        wendy_speed = self.wendy.speed()
+
+        # Move turtles until one crosses the finish line
+        while (self.tom.t1.xcor() < line and 
+               self.harry.t1.xcor() < line and 
+               self.tim.t1.xcor() < line and 
+               self.rita.t1.xcor() < line and 
+               self.wendy.t1.xcor() < line):
+            self.tom.t1.forward(tom_speed)
+            self.harry.t1.forward(harry_speed)
+            self.tim.t1.forward(tim_speed)
+            self.rita.t1.forward(rita_speed)
+            self.wendy.t1.forward(wendy_speed)
+
+        #final_list = [tom.xcor(), harry.xcor(), tim.xcor(), rita.xcor(), wendy.xcor()]
+        #final_dict = {tom.xcor():used_color[0], harry.xcor():used_color[1], tim.xcor():used_color[2], rita.xcor():used_color[3], wendy.xcor():used_color[4]}
     
     def play(self):
         self.game_play()
