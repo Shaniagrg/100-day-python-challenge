@@ -55,12 +55,12 @@ class Arena:
             t.hideturtle()
 
     def draw_track(self):
+        self.screen()
         self.start_line()  
         self.finish_line()  
         self.track_line()  
 
 a = Arena(length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90)
-a.screen()  # Set up the screen
 a.draw_track()  # Draw the track
 
 #Start.create_arena()
