@@ -75,21 +75,37 @@ class Player:
         t1.shape("turtle")
         t1.color(self.color)
         turtle_y_position = turtle_y_position - 25
-        
       
-colors = ['red', 'orange', 'blue', 'green', 'purple']
-player_name = ["p1","p2","p3","p4","p5"]
-players = []
-a = Arena(length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90)
-a.draw_track()  # Draw the track
-turtle_y_position = 10
+      
+class Game:
+    players: list[Player] = []
+    colors: list[str] = ['red', 'orange', 'blue', 'green', 'purple']
+    names: list[str] = ['p1', 'p2', 'p3', 'p4', 'p5']
+    turtle_y_position = 10
+    arena: Arena = None
+    winner: str = None
 
-for i in range(5):
-    p = Player(name = player_name[i], color = colors[i], speed = random.uniform(0,5), x = -160)
-    players.append(p)
-    p.turtle_position()
+    @classmethod
+    def create_players(cls):
+        for i in range(5):
+            p = Player(name = player_name[i], color = colors[i], speed = random.uniform(0,5), x = -160)
+            players.append(p)
+            p.turtle_position()
+            cls.players.append(p)
+
+    @classmethod
+    def create_arena(cls):
+        cls.arena = Arena(length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90)
+        cls.arena.create_arena()
+
+    @classmethod
+    def start(cls):
+        cls.create_arena()
+        cls.create_players()
+        turtle.done()
 
 
-#Start.create_arena()
+# Run the game
+Game.start()  
 
 turtle.done()
