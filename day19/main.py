@@ -60,8 +60,35 @@ class Arena:
         self.finish_line()  
         self.track_line()  
 
+class Player:
+    def __init__(self, name = '', color='white', speed=0.0, x = 0):
+        self.name = name
+        self.color = color
+        self.speed = speed
+        self.x = x
+        
+    def turtle_position(self):
+        t1 = turtle.Turtle()
+        global turtle_y_position  # Declare turtle_y_position as global
+        t1.up()
+        t1.setposition(self.x,turtle_y_position)
+        t1.shape("turtle")
+        t1.color(self.color)
+        turtle_y_position = turtle_y_position - 25
+        
+      
+colors = ['red', 'orange', 'blue', 'green', 'purple']
+player_name = ["p1","p2","p3","p4","p5"]
+players = []
 a = Arena(length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90)
 a.draw_track()  # Draw the track
+turtle_y_position = 10
+
+for i in range(5):
+    p = Player(name = player_name[i], color = colors[i], speed = random.uniform(0,5), x = -160)
+    players.append(p)
+    p.turtle_position()
+
 
 #Start.create_arena()
 
