@@ -73,12 +73,13 @@ class Player:
         self.turtle_y_position = turtle_y_position
         
     def turtle_position(self):
-        #t1 = turtle.Turtle()
-        #global turtle_y_position  # Declare turtle_y_position as global
         self.each_player.up()
         self.each_player.setposition(self.x,self.turtle_y_position)
         self.each_player.shape(self.shape)
         self.each_player.color(self.color)
+        
+    def move(self):
+        self.each_player.forward(self.speed)
       
       
 class Game:
@@ -87,6 +88,18 @@ class Game:
     names = ['p1', 'p2', 'p3', 'p4', 'p5'] #type: list[str]
     arena = None  #arena: Arena = None
     winner = None   #winner: str = None
+    line = 140
+
+    @classmethod
+    def race_turtle(cls):
+        while True:
+            for index in cls.players:
+                index.move()  # Move each player
+                # Check if the player has reached the finish line
+                if index.each_player.xcor() >= cls.line:
+                  cls.winner = index.name
+                  
+                  return  # Exit the loop once a winner is found
 
     @classmethod
     def create_players(cls):
@@ -109,6 +122,7 @@ class Game:
     def start(cls):
         cls.create_arena()
         cls.create_players()
+        cls.race_turtle()
         turtle.done()
 
 
