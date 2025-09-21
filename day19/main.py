@@ -62,13 +62,13 @@ class Arena:
         self.track_line()  
 
 class Player:
-    def __init__(self, name = '', shape = "", color='white', speed=0.0, x = 0, turtle_y_position = 0):
+    def __init__(self, name = '', shape = "", color='white', speed=0.0, turtle_x_position = 0, turtle_y_position = 0):
         self.each_player = turtle.Turtle()
         self.name = name
         self.shape = shape
         self.color = color
         self.speed = speed
-        self.position = self.turtle_position(x,turtle_y_position)
+        self.position = self.turtle_position(turtle_x_position,turtle_y_position)
         
     def turtle_position(self,x,y):
         self.each_player.up()
@@ -121,7 +121,7 @@ class Game:
                 player_speed = random.uniform(0, 5)
             assigned_speeds.add(player_speed)
             
-            p = Player(name=player_name, shape="turtle", color=player_color, speed=player_speed, x=-160, turtle_y_position = locate_turtle)
+            p = Player(name=player_name, shape="turtle", color=player_color, speed=player_speed, turtle_x_position=-160, turtle_y_position = locate_turtle)
             cls.players.append(p)
             locate_turtle = locate_turtle - 25
             
