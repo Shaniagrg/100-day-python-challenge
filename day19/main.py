@@ -3,9 +3,10 @@ import random
 
 class Arena:
     
-    def __init__(self, length, track_length, width, height, bg_color, x, y, angle, track_yposition, track_xposition, track_color):
+    def __init__(self, speed, length, track_length, width, height, bg_color, x, y, angle, track_yposition, track_xposition, track_color):
         self.pen = turtle.Turtle()  #create pen
         self.screen = turtle.Screen()
+        self.speed = speed
         self.length = length
         self.track_length = track_length
         self.width = width
@@ -19,33 +20,31 @@ class Arena:
         self.track_color = track_color
         
     def setup_screen(self):
-        #screen = turtle.Screen()
         self.screen.setup(self.width, self.height)
         self.screen.bgcolor(self.bg_color)
         
     def start_line(self):
         x_axis = -self.x
         self.pen.up()  #Lift the pen
+        self.pen.speed(self.speed)
         self.pen.setposition(x_axis, self.y)
         self.pen.write("start line", align='center')
         self.pen.right(self.angle)  # Face forward down
         self.pen.forward(10)
         self.pen.down()  # Put the pen down
         self.pen.forward(self.length)
-        self.pen.hideturtle()
 
     def finish_line(self):
         self.pen.up()  # Lift the pen
+        self.pen.speed(self.speed)
         self.pen.setposition(self.x, self.y)
         self.pen.write("finish line", align='center')
         self.pen.forward(10)
         self.pen.down()  # Put the pen down
         self.pen.forward(self.length)
-        self.pen.hideturtle()
 
     def track_line(self):  
-        #yposition = 20
-        #xposition = -self.x - 30
+        self.pen.speed(self.speed)
         self.pen.left(self.angle)  # Face to the left
         for i in range(5):
             self.pen.up()
@@ -115,7 +114,7 @@ class Game:
 
     @classmethod
     def create_arena(cls):
-        cls.arena = Arena(length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90, track_yposition = 10, track_xposition = -160, track_color = "white")
+        cls.arena = Arena(speed = 0, length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90, track_yposition = 10, track_xposition = -160, track_color = "white")
         cls.arena.draw_track()
 
     @classmethod
@@ -128,5 +127,3 @@ class Game:
 
 # Run the game
 Game.start()  
-
-#turtle.done()
