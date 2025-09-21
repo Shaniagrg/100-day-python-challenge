@@ -79,26 +79,26 @@ class Player:
         self.each_player.setposition(self.x,self.turtle_y_position)
         self.each_player.shape(self.shape)
         self.each_player.color(self.color)
-        self.turtle_y_position = self.turtle_y_position - 25
       
       
 class Game:
     players = []  #type: list[Player]
     colors = ['red', 'orange', 'blue', 'green', 'purple']  #type: list[str]
     names = ['p1', 'p2', 'p3', 'p4', 'p5'] #type: list[str]
-    #turtle_y_position = 10
     arena = None  #arena: Arena = None
     winner = None   #winner: str = None
 
     @classmethod
     def create_players(cls):
+        locate_turtle = 22
         for i in range(5):
             player_name = cls.names[i]
             player_color = cls.colors[i]
             player_speed = random.uniform(0,5)
-            p = Player(name=player_name, shape="turtle", color=player_color, speed=player_speed, x=-160)
+            p = Player(name=player_name, shape="turtle", color=player_color, speed=player_speed, x=-160, turtle_y_position = locate_turtle)
             cls.players.append(p)
             p.turtle_position()
+            locate_turtle = locate_turtle - 25
 
     @classmethod
     def create_arena(cls):
