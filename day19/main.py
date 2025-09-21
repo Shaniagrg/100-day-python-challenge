@@ -88,6 +88,15 @@ class Game:
     arena = None  #arena: Arena = None
     winner = None   #winner: str = None
     line = 140
+    #user = input("Which color do you think will win?: ")
+
+    @classmethod
+    def display_winner(cls):
+        # Display the winner on the screen
+        cls.arena.pen.up()  
+        cls.arena.pen.setposition(0, 80)  # Move to the center of the screen
+        cls.arena.pen.write("The winner is: {}".format(cls.winner), align='center', font=("Arial", 16, "bold"))
+        cls.arena.pen.hideturtle()  
 
     @classmethod
     def race_turtle(cls):
@@ -97,16 +106,22 @@ class Game:
                 # Check if the player has reached the finish line
                 if index.each_player.xcor() >= cls.line:
                   cls.winner = index.name
-                  
+                  cls.display_winner()
                   return  # Exit the loop once a winner is found
 
     @classmethod
     def create_players(cls):
+        assigned_speeds = set()
         locate_turtle = 22
         for i in range(5):
             player_name = cls.names[i]
             player_color = cls.colors[i]
+            
             player_speed = random.uniform(0,5)
+            while player_speed in assigned_speeds:
+                player_speed = random.uniform(0, 5)
+            assigned_speeds.add(player_speed)
+            
             p = Player(name=player_name, shape="turtle", color=player_color, speed=player_speed, x=-160, turtle_y_position = locate_turtle)
             cls.players.append(p)
             p.turtle_position()
