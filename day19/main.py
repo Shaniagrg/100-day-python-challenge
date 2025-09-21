@@ -1,12 +1,11 @@
 import turtle
 import random
 
-#create pen
-t = turtle.Turtle()
-
 class Arena:
     
-    def __init__(self, length, track_length, width, height, bg_color, x, y, angle):
+    def __init__(self, length, track_length, width, height, bg_color, x, y, angle, track_yposition, track_xposition, track_color):
+        self.pen = turtle.Turtle()  #create pen
+        self.screen = turtle.Screen()
         self.length = length
         self.track_length = track_length
         self.width = width
@@ -15,88 +14,96 @@ class Arena:
         self.x = x
         self.y = y
         self.angle = angle
+        self.track_yposition = track_yposition
+        self.track_xposition = track_xposition
+        self.track_color = track_color
         
-    def screen(self):
-        s = turtle.Screen()
-        s.setup(self.width, self.height)
-        s.bgcolor(self.bg_color)
+    def setup_screen(self):
+        #screen = turtle.Screen()
+        self.screen.setup(self.width, self.height)
+        self.screen.bgcolor(self.bg_color)
         
     def start_line(self):
         x_axis = -self.x
-        t.up()  # Lift the pen
-        t.setposition(x_axis, self.y)
-        t.write("start line", align='center')
-        t.right(self.angle)  # Face forward down
-        t.forward(10)
-        t.down()  # Put the pen down
-        t.forward(self.length)
-        t.hideturtle()
+        self.pen.up()  #Lift the pen
+        self.pen.setposition(x_axis, self.y)
+        self.pen.write("start line", align='center')
+        self.pen.right(self.angle)  # Face forward down
+        self.pen.forward(10)
+        self.pen.down()  # Put the pen down
+        self.pen.forward(self.length)
+        self.pen.hideturtle()
 
     def finish_line(self):
-        t.up()  # Lift the pen
-        t.setposition(self.x, self.y)
-        t.write("finish line", align='center')
-        t.forward(10)
-        t.down()  # Put the pen down
-        t.forward(self.length)
-        t.hideturtle()
+        self.pen.up()  # Lift the pen
+        self.pen.setposition(self.x, self.y)
+        self.pen.write("finish line", align='center')
+        self.pen.forward(10)
+        self.pen.down()  # Put the pen down
+        self.pen.forward(self.length)
+        self.pen.hideturtle()
 
     def track_line(self):  
-        yposition = 20
-        xposition = -self.x - 30
-        t.left(self.angle)  # Face to the left
+        #yposition = 20
+        #xposition = -self.x - 30
+        self.pen.left(self.angle)  # Face to the left
         for i in range(5):
-            t.up()
-            t.setposition(xposition, yposition)
-            t.color("white")
-            t.down()
-            t.forward(self.track_length)
-            yposition = yposition - 25  
-            t.hideturtle()
+            self.pen.up()
+            self.pen.setposition(self.track_xposition, self.track_yposition)
+            self.pen.color(self.track_color)
+            self.pen.down()
+            self.pen.forward(self.track_length)
+            self.track_yposition = self.track_yposition - 25  
+            self.pen.hideturtle()
 
     def draw_track(self):
-        self.screen()
+        self.setup_screen()
         self.start_line()  
         self.finish_line()  
         self.track_line()  
 
 class Player:
-    def __init__(self, name = '', color='white', speed=0.0, x = 0):
+    def __init__(self, name = '', shape = "", color='white', speed=0.0, x = 0, turtle_y_position = 0):
+        self.each_player = turtle.Turtle()
         self.name = name
+        self.shape = shape
         self.color = color
         self.speed = speed
         self.x = x
+        self.turtle_y_position = turtle_y_position
         
     def turtle_position(self):
-        t1 = turtle.Turtle()
-        global turtle_y_position  # Declare turtle_y_position as global
-        t1.up()
-        t1.setposition(self.x,turtle_y_position)
-        t1.shape("turtle")
-        t1.color(self.color)
-        turtle_y_position = turtle_y_position - 25
+        #t1 = turtle.Turtle()
+        #global turtle_y_position  # Declare turtle_y_position as global
+        self.each_player.up()
+        self.each_player.setposition(self.x,self.turtle_y_position)
+        self.each_player.shape(self.shape)
+        self.each_player.color(self.color)
+        self.turtle_y_position = self.turtle_y_position - 25
       
       
 class Game:
-    players: list[Player] = []
-    colors: list[str] = ['red', 'orange', 'blue', 'green', 'purple']
-    names: list[str] = ['p1', 'p2', 'p3', 'p4', 'p5']
-    turtle_y_position = 10
-    arena: Arena = None
-    winner: str = None
+    players = []  #type: list[Player]
+    colors = ['red', 'orange', 'blue', 'green', 'purple']  #type: list[str]
+    names = ['p1', 'p2', 'p3', 'p4', 'p5'] #type: list[str]
+    #turtle_y_position = 10
+    arena = None  #arena: Arena = None
+    winner = None   #winner: str = None
 
     @classmethod
     def create_players(cls):
         for i in range(5):
-            p = Player(name = player_name[i], color = colors[i], speed = random.uniform(0,5), x = -160)
-            players.append(p)
-            p.turtle_position()
+            player_name = cls.names[i]
+            player_color = cls.colors[i]
+            player_speed = random.uniform(0,5)
+            p = Player(name=player_name, shape="turtle", color=player_color, speed=player_speed, x=-160)
             cls.players.append(p)
+            p.turtle_position()
 
     @classmethod
     def create_arena(cls):
-        cls.arena = Arena(length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90)
-        cls.arena.create_arena()
+        cls.arena = Arena(length=155, track_length=340, width=700, height=500, bg_color="lightgreen", x=140, y=50, angle=90, track_yposition = 10, track_xposition = -160, track_color = "white")
+        cls.arena.draw_track()
 
     @classmethod
     def start(cls):
@@ -108,4 +115,4 @@ class Game:
 # Run the game
 Game.start()  
 
-turtle.done()
+#turtle.done()
