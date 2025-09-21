@@ -68,12 +68,11 @@ class Player:
         self.shape = shape
         self.color = color
         self.speed = speed
-        self.x = x
-        self.turtle_y_position = turtle_y_position
+        self.position = self.turtle_position(x,turtle_y_position)
         
-    def turtle_position(self):
+    def turtle_position(self,x,y):
         self.each_player.up()
-        self.each_player.setposition(self.x,self.turtle_y_position)
+        self.each_player.setposition(x,y)
         self.each_player.shape(self.shape)
         self.each_player.color(self.color)
         
@@ -124,8 +123,8 @@ class Game:
             
             p = Player(name=player_name, shape="turtle", color=player_color, speed=player_speed, x=-160, turtle_y_position = locate_turtle)
             cls.players.append(p)
-            p.turtle_position()
             locate_turtle = locate_turtle - 25
+            
 
     @classmethod
     def create_arena(cls):
