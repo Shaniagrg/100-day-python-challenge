@@ -46,8 +46,29 @@ class Snake:
             self.snake.forward(self.width)  
             self.snake.right(90) 
         self.snake.end_fill()
+    
+    '''def move_snake(self):
+        self.x = self.x + 1 #move right until width 500
+        self.x = self.x - 1 #move left until width 500
+        self.y = self.y + 1 #move up until lenght 500
+        self.y = self.y - 1 #move down until length 500'''
+   
+class Food:
+    def __init__(self, shape, color, food_x, food_y):
+        self.food = turtle.Turtle()
+        self.shape = shape
+        self.color = color
+        self.position = self.food_position(x=food_x, y=food_y)
         
+    def food_position(self,x,y):
+        self.food.up()
+        self.food.setposition(x,y)
+        self.food.shape(self.shape)
+        self.food.color(self.color)
 class Game:
+    @classmethod
+    def create_food(cls):
+        cls.food = Food(shape = "circle",color = "red", food_x = -50, food_y = 30)
     @classmethod
     def create_snake(cls):
         cls.snake = Snake(length=40, width = 10, color = "green", speed = 0, x = 0, y = 0)
@@ -60,6 +81,7 @@ class Game:
     def start(cls):
         cls.create_arena()
         cls.create_snake()
+        cls.create_food()
         
         
 Game.start()
