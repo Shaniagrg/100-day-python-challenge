@@ -10,6 +10,7 @@ Function:
 '''
 
 import turtle
+import random
 
 class Arena:
     def __init__(self, height, width, bg_color):
@@ -101,11 +102,11 @@ class Snake:
         if self.direction != "left":
             self.direction = "right"
 class Food:
-    def __init__(self, shape, color, food_x, food_y):
+    def __init__(self, shape, color):
         self.food = turtle.Turtle()
         self.shape = shape
         self.color = color
-        self.position = self.food_position(x=food_x, y=food_y)
+        self.position = self.food_position(x=random.randint(-250,250), y=random.randint(-250,250))
         
     def food_position(self,x,y):
         self.food.up()
@@ -115,7 +116,7 @@ class Food:
 class Game:
     @classmethod
     def create_food(cls):
-        cls.food = Food(shape = "circle",color = "red", food_x = -50, food_y = 30)
+        cls.food = Food(shape = "circle",color = "red")
     @classmethod
     def create_snake(cls):
         cls.snake = Snake(shape = "square", length=40, width = 10, color = "green", speed = 0, x = 0, y = 0, arena_width = 500/2, arena_height = 500/2)
