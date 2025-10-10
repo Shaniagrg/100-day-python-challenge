@@ -47,13 +47,13 @@ class Snake:
     
     def move_snake(self):
         if self.direction == "right":
-            self.x = self.x + 1 #move right until width 500
+            self.x = self.x + 20 #move right until width 500
         if self.direction == "left":
-            self.x = self.x - 1 #move left until width 500
+            self.x = self.x - 20 #move left until width 500
         if self.direction == "up":
-            self.y = self.y + 1 #move up until lenght 500
+            self.y = self.y + 20 #move up until lenght 500
         if self.direction == "down":
-            self.y = self.y - 1 #move down until length 500
+            self.y = self.y - 20 #move down until length 500
         
         #setx() method is used to set the turtle's x-coordinate to a new value via for y
         self.snake.setx(self.x)  # Move the snake to the updated x position
