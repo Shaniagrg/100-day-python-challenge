@@ -24,11 +24,9 @@ class Arena:
         self.screen.bgcolor(self.bg_color)
 
 class Snake:
-    def __init__(self, shape, length, width, color, speed, x, y, arena_width, arena_height):
+    def __init__(self, shape, color, speed, x, y, arena_width, arena_height):
         self.snake = turtle.Turtle()
         self.shape = shape
-        self.length = length
-        self.width = width
         self.color = color
         self.speed = speed
         self.direction = "stop"  # Initial direction
@@ -118,7 +116,7 @@ class Game:
         cls.food = Food(shape = "circle",color = "red")
     @classmethod
     def create_snake(cls):
-        cls.snake = Snake(shape = "square", length=40, width = 10, color = "green", speed = 0, x = 0, y = 0, arena_width = 500/2, arena_height = 500/2)
+        cls.snake = Snake(shape = "square", color = "green", speed = 0, x = 0, y = 0, arena_width = 500/2, arena_height = 500/2)
     @classmethod
     def create_arena(cls):
         cls.arena = Arena(width = 500, height = 500, bg_color = "lavender")
