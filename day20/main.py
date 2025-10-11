@@ -74,6 +74,7 @@ class Snake:
         therefore we dont check for 500 width and lenght rather 500/2 = 250 
         
         '''
+        #call arena inside snake not 
         if self.x > self.arena_width:  
             self.x = self.arena_width 
             self.snake.setx(self.x)  # Keep the snake at the boundary
@@ -89,18 +90,15 @@ class Snake:
     
     # Direction control
     
-    def go_up(self): 
-        if self.direction != "down":
-            self.direction = "up"
+    def go_up(self):   
+        self.direction = "up"
     def go_down(self):
-        if self.direction != "up":
-            self.direction = "down"
+        self.direction = "down"
     def go_left(self):
-        if self.direction != "right":
-            self.direction = "left"
+        self.direction = "left"
     def go_right(self):
-        if self.direction != "left":
-            self.direction = "right"
+        self.direction = "right"
+            
 class Food:
     def __init__(self, shape, color):
         self.food = turtle.Turtle()
@@ -113,6 +111,7 @@ class Food:
         self.food.setposition(x,y)
         self.food.shape(self.shape)
         self.food.color(self.color)
+        
 class Game:
     @classmethod
     def create_food(cls):
