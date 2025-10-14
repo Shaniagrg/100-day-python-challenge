@@ -100,7 +100,6 @@ class Snake:
             self.snake.sety(self.y)
     
     # Direction control
-    
     def go_up(self):   
         self.direction = "up"
         
@@ -129,6 +128,12 @@ class Food:
         
 class Game:
     
+    arena = None
+    snake = None
+    food = None
+    score = 0
+    speed = 0.1
+    
     @classmethod
     def create_food(cls):
         cls.food = Food(shape = "circle",color = "red")
@@ -144,7 +149,6 @@ class Game:
 
     @classmethod
     def start(cls):
-        
         cls.create_arena()
         cls.create_snake()
         cls.create_food()
