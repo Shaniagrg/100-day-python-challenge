@@ -13,6 +13,7 @@ import turtle
 import random
 
 class Arena:
+    
     def __init__(self, height, width, bg_color):
         self.screen = turtle.Screen()
         self.height = height
@@ -24,14 +25,13 @@ class Arena:
         self.screen.bgcolor(self.bg_color)
 
 class Snake:
-    def __init__(self, shape, color, speed, x, y, arena_width, arena_height):
+    
+    def __init__(self, shape, color, speed, x, y):
         self.snake = turtle.Turtle()
         self.shape = shape
         self.color = color
         self.speed = speed
         self.direction = "stop"  # Initial direction
-        self.arena_width = arena_width
-        self.arena_height = arena_height
         self.x = x  
         self.y = y
         self.position = self.snake_position(x,y)
@@ -42,14 +42,20 @@ class Snake:
         self.snake.setposition(x,y)
         self.snake.color(self.color)
         
-    
+    def set_arena_dimensions(self,arena_width,arena_height):
+        self.arena_width = arena_width
+        self.arena_height = arena_height
+            
     def move_snake(self):
         if self.direction == "right":
             self.x = self.x + 20 #move right until width 500
+            
         if self.direction == "left":
             self.x = self.x - 20 #move left until width 500
+            
         if self.direction == "up":
             self.y = self.y + 20 #move up until lenght 500
+            
         if self.direction == "down":
             self.y = self.y - 20 #move down until length 500
         
@@ -72,16 +78,23 @@ class Snake:
         therefore we dont check for 500 width and lenght rather 500/2 = 250 
         
         '''
-        #call arena inside snake not 
+        self.boundry_check()
+
+            
+    def boundry_check(self):
+        
         if self.x > self.arena_width:  
             self.x = self.arena_width 
             self.snake.setx(self.x)  # Keep the snake at the boundary
+            
         elif self.x < -self.arena_width:  
             self.x = -self.arena_width  
             self.snake.setx(self.x)
+            
         if self.y > self.arena_height: 
             self.y = self.arena_height  
             self.snake.sety(self.y)
+            
         elif self.y < -self.arena_height:  
             self.y = -self.arena_height 
             self.snake.sety(self.y)
@@ -90,14 +103,18 @@ class Snake:
     
     def go_up(self):   
         self.direction = "up"
+        
     def go_down(self):
         self.direction = "down"
+        
     def go_left(self):
         self.direction = "left"
+        
     def go_right(self):
         self.direction = "right"
             
 class Food:
+    
     def __init__(self, shape, color):
         self.food = turtle.Turtle()
         self.shape = shape
@@ -111,12 +128,15 @@ class Food:
         self.food.color(self.color)
         
 class Game:
+    
     @classmethod
     def create_food(cls):
         cls.food = Food(shape = "circle",color = "red")
+        
     @classmethod
     def create_snake(cls):
-        cls.snake = Snake(shape = "square", color = "green", speed = 0, x = 0, y = 0, arena_width = 500/2, arena_height = 500/2)
+        cls.snake = Snake(shape = "square", color = "green", speed = 0, x = 0, y = 0)
+        
     @classmethod
     def create_arena(cls):
         cls.arena = Arena(width = 500, height = 500, bg_color = "lavender")
@@ -124,9 +144,11 @@ class Game:
 
     @classmethod
     def start(cls):
+        
         cls.create_arena()
         cls.create_snake()
         cls.create_food()
+        cls.snake.set_arena_dimensions(cls.arena.width / 2, cls.arena.height / 2)
         # Set up controls
         #screen.onkey(func, "Key") = it binds a key press to run a function.
         screen = cls.arena.screen
