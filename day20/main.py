@@ -82,7 +82,6 @@ class Snake:
 
             
     def boundry_check(self):
-        
         if self.x > self.arena_width:  
             self.x = self.arena_width 
             self.snake.setx(self.x)  # Keep the snake at the boundary
@@ -98,6 +97,15 @@ class Snake:
         elif self.y < -self.arena_height:  
             self.y = -self.arena_height 
             self.snake.sety(self.y)
+            
+        if self.x >= self.arena_width or self.x <= -self.arena_width or self.y >= self.arena_height or self.y <= -self.arena_height:
+            self.game_over()
+        
+    def game_over(self):
+        self.snake.hideturtle()
+        self.snake.penup()
+        self.snake.goto(0, 0)
+        self.snake.write("Game Over!", align="center", font=("Arial", 24, "normal"))
     
     # Direction control
     def go_up(self):   
@@ -170,6 +178,7 @@ class Game:
         
         while True:
             cls.snake.move_snake()
+            
         
         
 Game.start()
