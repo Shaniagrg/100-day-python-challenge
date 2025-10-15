@@ -102,7 +102,7 @@ class Snake:
             self.game_over()
         
     def game_over(self):
-        self.snake.hideturtle()
+        self.snake.hideturtle() 
         self.snake.penup()
         self.snake.goto(0, 0)
         self.snake.write("Game Over!", align="center", font=("Arial", 24, "normal"))
@@ -137,7 +137,7 @@ class Food:
 class Game:
     
     arena = None
-    snake = None
+    snake_head = None
     food = None
     score = 0
     speed = 0.1
@@ -150,10 +150,10 @@ class Game:
         '''
         screen = cls.arena.screen
         screen.listen()
-        screen.onkey(cls.snake.go_up, "Up")
-        screen.onkey(cls.snake.go_down, "Down")
-        screen.onkey(cls.snake.go_left, "Left")
-        screen.onkey(cls.snake.go_right, "Right")
+        screen.onkey(cls.snake_head.go_up, "Up")
+        screen.onkey(cls.snake_head.go_down, "Down")
+        screen.onkey(cls.snake_head.go_left, "Left")
+        screen.onkey(cls.snake_head.go_right, "Right")
         
     @classmethod
     def create_food(cls):
@@ -161,11 +161,11 @@ class Game:
         
     @classmethod
     def create_snake(cls):
-        cls.snake = Snake(shape = "square", color = "green", speed = 0, x = 0, y = 0)
+        cls.snake_head = Snake(shape = "square", color = "white", speed = 0, x = 0, y = 0)
         
     @classmethod
     def create_arena(cls):
-        cls.arena = Arena(width = 500, height = 500, bg_color = "lavender")
+        cls.arena = Arena(width = 500, height = 500, bg_color = "black")
         cls.arena.setup_screen()
 
     @classmethod
@@ -173,11 +173,11 @@ class Game:
         cls.create_arena()
         cls.create_snake()
         cls.create_food()
-        cls.snake.set_arena_dimensions(cls.arena.width / 2, cls.arena.height / 2)
+        cls.snake_head.set_arena_dimensions(cls.arena.width / 2, cls.arena.height / 2)
         cls.onkey_movement()
         
         while True:
-            cls.snake.move_snake()
+            cls.snake_head.move_snake()
             
         
         
