@@ -135,6 +135,19 @@ class Game:
     speed = 0.1
     
     @classmethod
+    def onkey_movement(cls):
+        '''
+        Set up controls
+        screen.onkey(func, "Key") = it binds a key press to run a function.
+        '''
+        screen = cls.arena.screen
+        screen.listen()
+        screen.onkey(cls.snake.go_up, "Up")
+        screen.onkey(cls.snake.go_down, "Down")
+        screen.onkey(cls.snake.go_left, "Left")
+        screen.onkey(cls.snake.go_right, "Right")
+        
+    @classmethod
     def create_food(cls):
         cls.food = Food(shape = "circle",color = "red")
         
@@ -153,14 +166,7 @@ class Game:
         cls.create_snake()
         cls.create_food()
         cls.snake.set_arena_dimensions(cls.arena.width / 2, cls.arena.height / 2)
-        # Set up controls
-        #screen.onkey(func, "Key") = it binds a key press to run a function.
-        screen = cls.arena.screen
-        screen.listen()
-        screen.onkey(cls.snake.go_up, "Up")
-        screen.onkey(cls.snake.go_down, "Down")
-        screen.onkey(cls.snake.go_left, "Left")
-        screen.onkey(cls.snake.go_right, "Right")
+        cls.onkey_movement()
         
         while True:
             cls.snake.move_snake()
