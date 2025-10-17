@@ -50,16 +50,16 @@ class Snake:
     def move_snake(self):
         #move body
         if self.direction == "right":
-            self.x = self.x + 20 #move right until width 500
+            self.x = self.x + 8 #move right until width 500
             
         if self.direction == "left":
-            self.x = self.x - 20 #move left until width 500
+            self.x = self.x - 8 #move left until width 500
             
         if self.direction == "up":
-            self.y = self.y + 20 #move up until lenght 500
+            self.y = self.y + 8 #move up until lenght 500
             
         if self.direction == "down":
-            self.y = self.y - 20 #move down until length 500
+            self.y = self.y - 8 #move down until length 500
         
         #setx() method is used to set the turtle's x-coordinate to a new value via for y
         self.snake.setx(self.x)  # Move the snake to the updated x position
@@ -118,11 +118,11 @@ class Food:
         self.food = turtle.Turtle()
         self.shape = shape
         self.color = color
-        self.position = self.food_position(x=random.randint(-250,250), y=random.randint(-250,250))
+        self.food_position()
         
-    def food_position(self,x,y):
+    def food_position(self):
         self.food.up()
-        self.food.setposition(x,y)
+        self.food.setposition(x=random.randint(-250,250), y=random.randint(-250,250))
         self.food.shape(self.shape)
         self.food.color(self.color)
         
@@ -132,6 +132,7 @@ class Game:
     snake_head = None
     food = None
     score = 0
+    
    
     @classmethod
     def game_over(cls):
@@ -167,6 +168,7 @@ class Game:
     def create_arena(cls):
         cls.arena = Arena(width = 500, height = 500, bg_color = "black")
         cls.arena.setup_screen()
+        cls.arena.screen.tracer(0)
 
     @classmethod
     def start(cls):
@@ -178,11 +180,15 @@ class Game:
         
         while True:
             cls.snake_head.move_snake()
+            distance = cls.snake_head.snake.distance(cls.food.food)
+            if distance < 20:
+                cls.food.food_position()
             if (cls.snake_head.x >= cls.arena.width/2 or cls.snake_head.x <= -cls.arena.width/2 or cls.snake_head.y >= cls.arena.height/2 or cls.snake_head.y <= -cls.arena.height/2):
                 cls.game_over()
+                cls.arena.screen.update()
                 break
             
-            
+            cls.arena.screen.update()
         
         
 Game.start()
