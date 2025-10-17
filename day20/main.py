@@ -35,6 +35,7 @@ class Snake:
         self.x = x  
         self.y = y
         self.position = self.snake_position(x,y)
+        self.segments = []
     
     def snake_position(self,x,y):
         self.snake.up()
@@ -47,6 +48,7 @@ class Snake:
         self.arena_height = arena_height
             
     def move_snake(self):
+        #move body
         if self.direction == "right":
             self.x = self.x + 20 #move right until width 500
             
@@ -63,7 +65,7 @@ class Snake:
         self.snake.setx(self.x)  # Move the snake to the updated x position
         self.snake.sety(self.y)  # Move the snake to the updated y position
         
-        # Boundary checking 
+        
         '''
         arena has 4 sides
         x = 2 sides which includes + and -
@@ -79,7 +81,6 @@ class Snake:
         
         '''
         self.boundry_check()
-
             
     def boundry_check(self):
         if self.x > self.arena_width:  
@@ -97,16 +98,7 @@ class Snake:
         elif self.y < -self.arena_height:  
             self.y = -self.arena_height 
             self.snake.sety(self.y)
-            
-        if self.x >= self.arena_width or self.x <= -self.arena_width or self.y >= self.arena_height or self.y <= -self.arena_height:
-            self.game_over()
         
-    def game_over(self):
-        self.snake.hideturtle() 
-        self.snake.penup()
-        self.snake.goto(0, 0)
-        self.snake.write("Game Over!", align="center", font=("Arial", 24, "normal"))
-    
     # Direction control
     def go_up(self):   
         self.direction = "up"
@@ -140,8 +132,16 @@ class Game:
     snake_head = None
     food = None
     score = 0
-    speed = 0.1
-    
+   
+    @classmethod
+    def game_over(cls):
+        pen = turtle.Turtle()
+        pen.hideturtle()
+        pen.penup()
+        pen.color("red")
+        pen.goto(0, 0)
+        pen.write("GAME OVER", align="center", font=("Arial", 24, "bold"))
+
     @classmethod
     def onkey_movement(cls):
         '''
@@ -178,6 +178,10 @@ class Game:
         
         while True:
             cls.snake_head.move_snake()
+            if (cls.snake_head.x >= cls.arena.width/2 or cls.snake_head.x <= -cls.arena.width/2 or cls.snake_head.y >= cls.arena.height/2 or cls.snake_head.y <= -cls.arena.height/2):
+                cls.game_over()
+                break
+            
             
         
         
